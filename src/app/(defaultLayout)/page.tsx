@@ -1,7 +1,9 @@
+import { Banner } from "@/components/home/Banner";
+
 const CommonLayoutHomePage = () => {
   return (
     <div className="container">
-      <h1>Home Page</h1>
+      <Banner />
     </div>
   );
 };
