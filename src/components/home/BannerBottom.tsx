@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export function BannerBottom() {
   return (
@@ -20,12 +21,14 @@ export function BannerBottom() {
         <h1 className="text-xl md:text-3xl font-semibold mb-4 max-w-lg">
           Are you uncertain that Physical Therapy is the solution to your pain?
         </h1>
-        <Button
-          size="lg"
-          className="bg-primary text-foreground hover:bg-primary/80 px-2 py-4"
-        >
-          Book Appointment
-        </Button>
+        <Link href={"/book-appointment"}>
+          <Button
+            size="lg"
+            className="bg-primary text-foreground hover:bg-primary/80 px-2 py-4"
+          >
+            Book Appointment
+          </Button>
+        </Link>
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="container pt-20">
+    <div className="container">
       <div className="min-h-screen text-gray-400 p-4 md:p-8">
         <div className="max-w-2xl mx-auto space-y-8">
           <div className="text-center space-y-4">

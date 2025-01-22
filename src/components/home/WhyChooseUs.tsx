@@ -5,6 +5,7 @@ import healthCareOne from "@/assets/why-choose-us/healthCareOne.png";
 import healthCareTwo from "@/assets/why-choose-us/healthCareTwo.png";
 import healthCareThree from "@/assets/why-choose-us/healthCareThree.png";
 import healthCareFour from "@/assets/why-choose-us/healthCareFour.png";
+import Link from "next/link";
 
 export default function WhyChooseUs() {
   const benefits = [
@@ -40,9 +41,11 @@ export default function WhyChooseUs() {
               ))}
             </ul>
             <div className="mt-4">
+            <Link href={"/book-appointment"}>
               <Button className="bg-primary hover:bg-primary/80 text-foreground px-2 py-4">
                 Book Appointment
               </Button>
+            </Link>
             </div>
           </div>
 

@@ -4,6 +4,7 @@ import service1 from "@/assets/our-services/service-1.png";
 import service2 from "@/assets/our-services/service-2.png";
 import service3 from "@/assets/our-services/service-3.png";
 import service4 from "@/assets/our-services/service-4.png";
+import Link from "next/link";
 
 export default function ServicesSection() {
   const services = [
@@ -63,9 +64,11 @@ export default function ServicesSection() {
         </div>
 
         <div className="text-center">
+        <Link href={"/book-appointment"}>
           <Button className="bg-primary hover:bg-primary/80 text-foreground px-2 py-4">
             Book Appointment
           </Button>
+        </Link>
         </div>
       </div>
     </section>

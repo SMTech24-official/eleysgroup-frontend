@@ -17,3 +17,22 @@ body {
     --radius: 0.5rem;
   }
 }
+
+/* Default bullets */
+.swiper-pagination > .swiper-pagination-bullet {
+  background-color: #d1d5db; /* Gray color */
+  opacity: 0.6;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+/* Active bullet */
+.swiper-pagination > .swiper-pagination-bullet-active {
+  background-color: #ff9ce7; /* Primary color */
+  opacity: 1;
+}
+
+.swiper-pagination {
+  position: relative;
+  bottom: 0;
+  margin-top: 20px;
+}

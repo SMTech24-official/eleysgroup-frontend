@@ -1,6 +1,15 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-export function Banner({ imagePath, title, description }: {imagePath: string, title: string, description: string}) {
+export function Banner({
+  imagePath,
+  title,
+  description,
+}: {
+  imagePath: string;
+  title: string;
+  description: string;
+}) {
   return (
     <div className="relative min-h-screen">
       {/* Background Image */}
@@ -22,12 +31,14 @@ export function Banner({ imagePath, title, description }: {imagePath: string, ti
           <p className="text-lg md:text-xl max-w-2xl mb-8 text-gray-200">
             {description}
           </p>
-          <Button
-            size="lg"
-            className="bg-primary text-foreground hover:bg-primary px-4 py-2"
-          >
-            Book Appointment
-          </Button>
+          <Link href={"/book-appointment"}>
+            <Button
+              size="lg"
+              className="bg-primary text-foreground hover:bg-primary px-4 py-2"
+            >
+              Book Appointment
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

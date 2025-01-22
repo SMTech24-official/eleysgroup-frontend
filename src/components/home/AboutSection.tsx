@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import aboutus from "@/assets/aboutusImage.png";
 import { HiCheckBadge } from "react-icons/hi2";
+import Link from "next/link";
 
 export default function AboutSection() {
   return (
@@ -66,9 +67,11 @@ export default function AboutSection() {
           </div>
 
           {/* Button */}
+          <Link href={"/book-appointment"}>
           <Button className="bg-primary hover:bg-primary/80 text-white px-8 py-2 rounded-lg">
             Book Appointment
           </Button>
+          </Link>
         </div>
       </div>
     </section>

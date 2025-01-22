@@ -37,7 +37,9 @@ export function Navbar() {
       }  w-full z-50 backdrop-blur-md`}
     >
       <div className="container flex h-[120px] items-center justify-between">
-        <Image src={logo} alt="logo" />
+        <Link href={"/"}>
+          <Image src={logo} alt="logo" />
+        </Link>
 
         <nav className="hidden md:flex items-center gap-6">
           {NavLink?.map((link) => (
@@ -61,12 +63,14 @@ export function Navbar() {
 
         {pathName === "/" || pathName === "/testimonials" ? (
           <div className="flex items-center space-x-4">
-            <Button
-              variant="secondary"
-              className="hidden md:flex bg-primary text-foreground hover:bg-primary px-2 py-4"
-            >
-              Book Appointment
-            </Button>
+            <Link href={"/book-appointment"}>
+              <Button
+                variant="secondary"
+                className="hidden md:flex bg-primary text-foreground hover:bg-primary px-2 py-4"
+              >
+                Book Appointment
+              </Button>
+            </Link>
 
             <Button
               onClick={toggleDrawer}
@@ -148,12 +152,14 @@ export function Navbar() {
                 </Link>
               ))}
             </nav>
-            <Button
-              variant="secondary"
-              className="bg-primary mt-5 text-foreground hover:bg-primary px-2 py-4"
-            >
-              Book Appointment
-            </Button>
+            <Link href={"/book-appointment"}>
+              <Button
+                variant="secondary"
+                className="bg-primary mt-5 text-foreground hover:bg-primary px-2 py-4"
+              >
+                Book Appointment
+              </Button>
+            </Link>
           </div>
         )}
       </div>
