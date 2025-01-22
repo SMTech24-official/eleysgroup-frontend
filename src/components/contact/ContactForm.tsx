@@ -47,7 +47,7 @@ export default function ContactForm() {
                 </label>
                 <Input
                   placeholder="Esther Howard"
-                  className="bg-transparent border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
+                  className="bg-transparent border placeholder:text-[#98A2B3] border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
                   {...register("name", { required: "Name is required" })}
                 />
                 {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
@@ -58,7 +58,7 @@ export default function ContactForm() {
                 </label>
                 <Input
                   placeholder="alma.lawson@example.com"
-                  className="bg-transparent border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
+                  className="bg-transparent border placeholder:text-[#98A2B3] border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
                   {...register("emailPhone", { required: "Email or Phone is required" })}
                 />
                 {errors.emailPhone && <span className="text-red-500 text-sm">{errors.emailPhone.message}</span>}
@@ -70,7 +70,7 @@ export default function ContactForm() {
                 <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">Address</label>
                 <Input
                   placeholder="Enter your Address"
-                  className="bg-transparent border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
+                  className="bg-transparent border placeholder:text-[#98A2B3] border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
                   {...register("address1", { required: "Address is required" })}
                 />
                 {errors.address1 && <span className="text-red-500 text-sm">{errors.address1.message}</span>}
@@ -79,7 +79,7 @@ export default function ContactForm() {
                 <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">Country</label>
                 <Input
                   placeholder="Enter your Country name"
-                  className="bg-transparent border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
+                  className="bg-transparent border placeholder:text-[#98A2B3] border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
                   {...register("country", { required: "Country is required" })}
                 />
                 {errors.country && <span className="text-red-500 text-sm">{errors.country.message}</span>}
@@ -90,7 +90,7 @@ export default function ContactForm() {
               <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">Address</label>
               <Input
                 placeholder="Enter your Address"
-                className="bg-transparent border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
+                className="bg-[#ececec] placeholder:text-[#98A2B3] border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
                 {...register("address", { required: "Address is required" })}
               />
               {errors.address && <span className="text-red-500 text-sm">{errors.address.message}</span>}
@@ -100,7 +100,7 @@ export default function ContactForm() {
               <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">Message</label>
               <Textarea
                 placeholder="Write a message..."
-                className="bg-transparent border border-gray-800 rounded-lg min-h-[150px] focus:ring-1 focus:ring-pink-500"
+                className="bg-[#ececec] border border-gray-800 rounded-lg placeholder:text-[#98A2B3] min-h-[150px] focus:ring-1 focus:ring-pink-500"
                 {...register("message", { required: "Message is required" })}
               />
               {errors.message && <span className="text-red-500 text-sm">{errors.message.message}</span>}
@@ -108,7 +108,7 @@ export default function ContactForm() {
 
             <Button
               type="submit"
-              className="w-full bg-pink-500 hover:bg-pink-600 text-white rounded-lg h-12 transition-colors"
+              className="w-full bg-[#FF9AE7] hover:bg-pink-400 rounded-lg h-12 transition-colors text-[#04090D] text-lg font-medium leading-[150%]"
             >
               Submit Now
             </Button>
