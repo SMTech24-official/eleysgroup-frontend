@@ -27,6 +27,7 @@ export function Navbar() {
   const toggleDrawer = () => {
     setIsDrawerOpen((prev) => !prev);
   };
+
   return (
     <header
       className={`${
@@ -121,7 +122,7 @@ export function Navbar() {
 
         {/* Mobile menu */}
         {isDrawerOpen && (
-          <div className="absolute top-0 left-0 w-full h-screen backdrop-blur-md flex flex-col items-center justify-center md:hidden transition-transform transform translate-x-0 duration-300 ease-in-out">
+          <div className="absolute top-0 left-0 w-full h-screen bg-white flex flex-col items-center justify-center md:hidden transition-transform transform translate-x-0 duration-300 ease-in-out">
             <button
               className="absolute top-10 right-4 text-white bg-black p-2 w-10 h-10 rounded-full"
               onClick={() => setIsDrawerOpen(false)}
