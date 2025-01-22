@@ -62,7 +62,7 @@ export function Navbar() {
           <div className="flex items-center space-x-4">
             <Button
               variant="secondary"
-              className="hidden md:flex bg-primary text-foreground px-2 py-4"
+              className="hidden md:flex bg-primary text-foreground hover:bg-primary px-2 py-4"
             >
               Book Appointment
             </Button>
@@ -70,7 +70,7 @@ export function Navbar() {
             <Button
               onClick={toggleDrawer}
               variant="outline"
-              className="md:hidden bg-black z-50"
+              className="md:hidden"
               size="icon"
             >
               <svg
@@ -83,7 +83,7 @@ export function Navbar() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-6 w-6 text-white"
+                className="h-6 w-6"
               >
                 <line x1="4" x2="20" y1="12" y2="12" />
                 <line x1="4" x2="20" y1="6" y2="6" />
@@ -120,10 +120,10 @@ export function Navbar() {
         )}
 
         {/* Mobile menu */}
-                {isDrawerOpen && (
-          <div className="absolute top-0 left-0 w-full h-screen bg-white backdrop-blur-md flex flex-col items-center justify-center">
+        {isDrawerOpen && (
+          <div className="absolute top-0 left-0 w-full h-screen backdrop-blur-md flex flex-col items-center justify-center md:hidden transition-transform transform translate-x-0 duration-300 ease-in-out">
             <button
-              className="absolute top-4 right-4 text-white"
+              className="absolute top-10 right-4 text-white bg-black p-2 w-10 h-10 rounded-full"
               onClick={() => setIsDrawerOpen(false)}
             >
               &times;
