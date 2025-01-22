@@ -31,7 +31,7 @@ export default function ServicesSection() {
 
   return (
     <section className="w-full px-4 py-16 bg-[#FFF5F9]">
-      <div className="container mx-auto max-w-6xl">
+      <div className="container mx-auto">
         <div className="text-center mb-12">
           <h3 className="text-primary text-xl font-semibold mb-3">
             Our Services

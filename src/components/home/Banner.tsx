@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 
-export function Banner({ imagePath, title, description }) {
+export function Banner({ imagePath, title, description }: {imagePath: string, title: string, description: string}) {
   return (
     <div className="relative min-h-screen">
       {/* Background Image */}
