@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import moduleName from 'module';
 
 export function Banner() {
   return (
