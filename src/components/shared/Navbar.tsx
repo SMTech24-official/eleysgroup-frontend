@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
+import logo from "@/assets/logo.png";
 
 const NavLink = [
   {
@@ -35,9 +37,7 @@ export function Navbar() {
       }  w-full z-50 backdrop-blur-md`}
     >
       <div className="container flex h-[120px] items-center justify-between">
-        <Link href="/" className="flex items-center space-x-2">
-          <span className="text-2xl font-bold text-primary">Logoipsum</span>
-        </Link>
+        <Image src={logo} alt="logo" />
 
         <nav className="hidden md:flex items-center gap-6">
           {NavLink?.map((link) => (
