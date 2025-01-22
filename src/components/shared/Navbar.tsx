@@ -33,7 +33,7 @@ export function Navbar() {
   return (
     <header
       className={`${
-        pathName === "/" || pathName === "testimonials" ? " fixed top-0 " : ""
+        pathName === "/" || pathName === "/testimonials" ? " fixed top-0 " : ""
       }  w-full z-50 backdrop-blur-md`}
     >
       <div className="container flex h-[120px] items-center justify-between">
@@ -45,7 +45,7 @@ export function Navbar() {
               key={link?.path}
               href={link?.path}
               className={`${
-                pathName === "/" || pathName === "testimonials"
+                pathName === "/" || pathName === "/testimonials"
                   ? " text-white"
                   : "text-black"
               } text-lg transition-colors hover:text-primary hover:border-b hover:border-primary ${
@@ -59,7 +59,7 @@ export function Navbar() {
           ))}
         </nav>
 
-        {pathName === "/" || pathName === "testimonials" ? (
+        {pathName === "/" || pathName === "/testimonials" ? (
           <div className="flex items-center space-x-4">
             <Button
               variant="secondary"
@@ -135,7 +135,7 @@ export function Navbar() {
                   key={link?.path}
                   href={link?.path}
                   className={`${
-                    pathName === "/" || pathName === "testimonials"
+                    pathName === "/" || pathName === "/testimonials"
                       ? " text-black"
                       : "text-black"
                   } text-lg transition-colors hover:text-primary hover:border-b hover:border-primary ${
