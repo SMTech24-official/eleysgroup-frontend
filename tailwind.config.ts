@@ -11,12 +11,12 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        primary: "#7C45F9",
-        secondary: "#102F22",
-        success: "#102F22",
-        info: "#D9F4F9",
-        warning: "#FAE4D0",
-        danger: "#d7191c",
+        primary: "#FF9CE7",
+        secondary: "",
+        success: "#00FFAC",
+        info: "#1C57FF",
+        warning: "#FCEA08",
+        danger: "#FF5700",
       },
       container: {
         center: true,
