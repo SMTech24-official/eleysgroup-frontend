@@ -28,7 +28,7 @@ export function Banner() {
           </p>
           <Button
             size="lg"
-            className="bg-pink-500 text-white hover:bg-pink-600"
+            className="bg-primary text-foreground hover:bg-primary px-4 py-2"
           >
             Book Appointment
           </Button>
