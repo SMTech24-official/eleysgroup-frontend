@@ -63,7 +63,7 @@ export default function ServicesSection() {
         </div>
 
         <div className="text-center">
-          <Button className="bg-primary hover:bg-primary/80 text-white px-2 py-4">
+          <Button className="bg-primary hover:bg-primary/80 text-foreground px-2 py-4">
             Book Appointment
           </Button>
         </div>

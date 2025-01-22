@@ -22,7 +22,7 @@ export function BannerBottom() {
         </h1>
         <Button
           size="lg"
-          className="bg-primary text-white hover:bg-primary/80 px-2 py-4"
+          className="bg-primary text-foreground hover:bg-primary/80 px-2 py-4"
         >
           Book Appointment
         </Button>
