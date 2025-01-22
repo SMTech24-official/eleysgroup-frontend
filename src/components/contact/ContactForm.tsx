@@ -26,12 +26,14 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="container">
+    <div className="container pt-20">
       <div className="min-h-screen text-gray-400 p-4 md:p-8">
         <div className="max-w-2xl mx-auto space-y-8">
           <div className="text-center space-y-4">
-            <h1 className="text-4xl font-semibold text-blue-400">Get in Touch</h1>
-            <p className="text-gray-500">
+            <h1 className="text-gray-800 text-center text-2xl font-semibold leading-[140%] tracking-[0.6px]">
+              Get in Touch
+            </h1>
+            <p className="text-gray-600 text-center text-base font-normal leading-[160%] tracking-[0.32px]">
               We&apos;d love to hear from you! Whether you have a question about our services, pricing, or anything
               else, our team is ready to answer all your questions.
             </p>
@@ -40,7 +42,9 @@ export default function ContactForm() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm text-gray-500">Enter Name</label>
+                <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">
+                  Enter Name
+                </label>
                 <Input
                   placeholder="Esther Howard"
                   className="bg-transparent border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
@@ -49,7 +53,9 @@ export default function ContactForm() {
                 {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm text-gray-500">Email/Phone</label>
+                <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">
+                  Email/Phone
+                </label>
                 <Input
                   placeholder="alma.lawson@example.com"
                   className="bg-transparent border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
@@ -61,7 +67,7 @@ export default function ContactForm() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm text-gray-500">Address</label>
+                <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">Address</label>
                 <Input
                   placeholder="Enter your Address"
                   className="bg-transparent border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
@@ -70,7 +76,7 @@ export default function ContactForm() {
                 {errors.address1 && <span className="text-red-500 text-sm">{errors.address1.message}</span>}
               </div>
               <div className="space-y-2">
-                <label className="text-sm text-gray-500">Country</label>
+                <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">Country</label>
                 <Input
                   placeholder="Enter your Country name"
                   className="bg-transparent border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
@@ -81,7 +87,7 @@ export default function ContactForm() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm text-gray-500">Address</label>
+              <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">Address</label>
               <Input
                 placeholder="Enter your Address"
                 className="bg-transparent border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
@@ -91,7 +97,7 @@ export default function ContactForm() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm text-gray-500">Message</label>
+              <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">Message</label>
               <Textarea
                 placeholder="Write a message..."
                 className="bg-transparent border border-gray-800 rounded-lg min-h-[150px] focus:ring-1 focus:ring-pink-500"
