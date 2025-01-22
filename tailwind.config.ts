@@ -23,7 +23,7 @@ export default {
   			center: true,
   			padding: '1rem',
   			screens: {
-  				default: '1440px'
+  				default: '1200px'
   			}
   		},
   		borderRadius: {
