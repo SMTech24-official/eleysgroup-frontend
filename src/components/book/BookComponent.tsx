@@ -72,12 +72,12 @@ const BookComponent = () => {
                         </div>
                         <div>
                           {item.appointments.map((appointment) => (
-                            <div className="flex items-center gap-2 j" key={appointment.id}>
+                            <div className="flex flex-col md:flex-row items-center gap-2 j" key={appointment.id}>
                               <div className="flex items-center gap-1 mt-5">
                                 <p className="text-[#04090D] text-lg font-medium ">{appointment?.date}</p>
                                 <p className="text-[#04090D] text-lg font-medium ">{appointment?.day}</p>
                               </div>
-                              <div className="grid grid-cols-4 gap-5 mt-5">
+                              <div className="grid lg:grid-cols-4 grid-cols-2 md:grid-cols-3 gap-5 mt-5">
                                 {appointment.timeSlots.map((timeSlot) => (
                                   <button
                                     key={timeSlot.id}
@@ -87,18 +87,20 @@ const BookComponent = () => {
                                         : "bg-[#F7F7F7] text-[#BDBDBD]"
                                     }`}
                                   >
-                                    <span className="text-lg font-medium leading-[150%]">{timeSlot.time}</span>
+                                    <span className="md:text-lg font-medium leading-[150%]">{timeSlot.time}</span>
                                   </button>
                                 ))}
                               </div>{" "}
                             </div>
                           ))}{" "}
-                          <button
-                            onClick={() => setShowBookingForm(true)}
-                            className="p-4 rounded-md bg-primary text-[#04090D] text-lg font-medium leading-[150%]"
-                          >
-                            Available
-                          </button>
+                          <div className="flex items-center justify-center md:items-start md:justify-start gap-5 mt-5">
+                            <button
+                              onClick={() => setShowBookingForm(true)}
+                              className="p-4 rounded-md bg-primary text-[#04090D] text-lg mt-2 md:mt-0 font-medium leading-[150%]"
+                            >
+                              Available
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </AccordionContent>
