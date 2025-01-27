@@ -10,9 +10,11 @@ export const metadata: Metadata = {
 const CommonLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <Navbar />
+     <div className="grid grid-cols-[]" >
+     <Navbar />
       <div>{children}</div>
       <Footer />
+     </div>
     </>
   );
 };

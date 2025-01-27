@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -18,8 +19,15 @@ type FormData = {
   notes?: string;
 };
 
-export function BookingForm({ setShowBookingForm }: { setShowBookingForm: (show: boolean) => void }) {
+export function BookingForm({
+  setShowBookingForm,
+  selectedslot,
+}: {
+  setShowBookingForm: (show: boolean) => void;
+  selectedslot: any;
+}) {
   const [step, setStep] = useState(1);
+  console.log(selectedslot);
   const {
     register,
     handleSubmit,
