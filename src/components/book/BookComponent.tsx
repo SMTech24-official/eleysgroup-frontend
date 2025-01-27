@@ -8,6 +8,7 @@ import { BookingForm } from "./BookingForm";
 import { useGetAllDoctorsQuery } from "@/redux/features/doctorApi/doctorApi";
 import { useGetServiceByDoctorIdQuery } from "@/redux/features/serviceApi/serviceApi";
 import { getStartOrEndTime } from "@/lib/formatDates";
+import { useRouter } from "next/navigation";
 
 const BookComponent = () => {
   const [openItem, setOpenItem] = useState<string | null>(null);
@@ -16,6 +17,7 @@ const BookComponent = () => {
   const [slecetedDoctor, setSelectedDoctor] = useState<string>("");
   const [selectedslot, setSelectedSlot] = useState<string>("");
   const [serviceId, setServiceId] = useState<string>("");
+  const router = useRouter();
 
   const { data: serviceByDoctorId, isLoading: serviceByDoctorIdLoading } = useGetServiceByDoctorIdQuery(
     slecetedDoctor,
@@ -31,6 +33,10 @@ const BookComponent = () => {
       setSelectedDoctor(allDoctocs?.data[0].id);
     }
   }, [allDoctocs?.data]);
+
+  const handleGoToDoctorProfile = () => {
+    router.push("/book-appointment/doctor-profile");
+  };
 
   return (
     <div className="my-10">
@@ -52,7 +58,7 @@ const BookComponent = () => {
                   updatedAt: string;
                 }) => (
                   <div key={doctor?.id} className="flex p-4 px-6 bg-white justify-between items-center self-stretch">
-                    <div className="flex gap-4">
+                    <div onClick={handleGoToDoctorProfile} className="flex gap-4 cursor-pointer">
                       <Image
                         src={doctor?.profileImage}
                         alt={`${doctor?.name} profile`}

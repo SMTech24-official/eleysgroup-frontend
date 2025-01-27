@@ -7,14 +7,14 @@ const appointmentsApi = baseApi.injectEndpoints({
         url: "/appointment",
         method: "GET",
       }),
-      providesTags: ["Appointment", "Service"],
+      providesTags: ["Appointment", "Service", "Slot"],
     }),
     getAppointmentById: builder.query({
       query: (id) => ({
         url: `/appointment/${id}`,
         method: "GET",
       }),
-      providesTags: ["Appointment", "Service"],
+      providesTags: ["Appointment", "Service", "Slot"],
     }),
     createAppointment: builder.mutation({
       query: (data) => ({
@@ -22,7 +22,7 @@ const appointmentsApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Appointment", "Service"],
+      invalidatesTags: ["Appointment", "Service", "Slot"],
     }),
     updateAppointment: builder.mutation({
       query: ({ data, id }) => ({
@@ -30,14 +30,14 @@ const appointmentsApi = baseApi.injectEndpoints({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: ["Appointment", "Service"],
+      invalidatesTags: ["Appointment", "Service", "Slot"],
     }),
     deleteAppointment: builder.mutation({
       query: (id) => ({
         url: `/appointment/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Appointment", "Service"],
+      invalidatesTags: ["Appointment", "Service", "Slot"],
     }),
   }),
 });

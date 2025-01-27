@@ -1,14 +1,36 @@
 "use client";
 import Image from "next/image";
 import doctor from "@/assets/doctor.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { appointments } from "@/constants/appointments";
 import { DateRow } from "@/components/doctor-profile/date-row";
 import { Button } from "@/components/ui/button";
+import { useGetAllSlotsQuery } from "@/redux/features/slots/slotsApi";
 export default function DoctorProfile() {
-  const [selectedTimes, setSelectedTimes] = useState<
-    Record<string, string | null>
-  >({});
+  const [selectedTimes, setSelectedTimes] = useState<Record<string, string | null>>({});
+
+  const [todaysDate, setTodaysDate] = useState<string>("");
+  const [weekDay, setWeekDay] = useState<string>("");
+
+  const { data } = useGetAllSlotsQuery({
+    startDate: todaysDate,
+    endDate: weekDay,
+  });
+
+  console.log(data?.data?.schedules);
+
+  useEffect(() => {
+    // todays date in this format 2025-01-26T23:59:59Z
+    const now = new Date();
+    const today = now.toISOString();
+
+    const sevenDaysLater = new Date();
+    sevenDaysLater.setDate(now.getDate() + 7);
+    const weekDay = sevenDaysLater.toISOString();
+
+    setTodaysDate(today);
+    setWeekDay(weekDay);
+  }, []);
 
   const handleTimeSelect = (date: string, time: string) => {
     setSelectedTimes((prev) => ({
@@ -17,9 +39,7 @@ export default function DoctorProfile() {
     }));
   };
 
-  const hasSelectedTime = Object.values(selectedTimes).some(
-    (time) => time !== null
-  );
+  const hasSelectedTime = Object.values(selectedTimes).some((time) => time !== null);
   return (
     <div className="bg-gray-50">
       <div className="container px-4 py-8 mx-auto">
@@ -28,12 +48,8 @@ export default function DoctorProfile() {
           {/* Left Column - Information */}
           <div className="flex-1 space-y-6 col-span-1 lg:col-span-2">
             <div className="space-y-2">
-              <h1 className="text-3xl md:text-[40px] font-semibold text-foreground">
-                Dr. AHM Masud Sinha
-              </h1>
-              <p className="text-xl text-foreground font-medium">
-                Consultant - Cardiology
-              </p>
+              <h1 className="text-3xl md:text-[40px] font-semibold text-foreground">Dr. AHM Masud Sinha</h1>
+              <p className="text-xl text-foreground font-medium">Consultant - Cardiology</p>
             </div>
 
             {/* Specialties and Qualifications Grid */}
@@ -57,15 +73,12 @@ export default function DoctorProfile() {
             {/* Description */}
             <div className="">
               <p className="text-gray-600 leading-relaxed">
-                Dr. AHM Masud Sinha is a cardiologist with 34 years of
-                experience. He completed his MBBS from DIP CARD from London,
-                United Kingdom. Over the years, Dr. Sinha has worked in various
-                hospitals. Dr. AHM Masud Sinha has worked at Euro Bangla Heart
-                Hospital, National Heart Foundation, Z H Sikder Women&apos;s
-                Medical College & Hospital, AMZ Hospital, and Al Sahna Center
-                under King Khaled Hospital, Riyadh, Saudi Arabia. Dr. Sinha has
-                received local and international training in Invasive and
-                Interventional Cardiology.
+                Dr. AHM Masud Sinha is a cardiologist with 34 years of experience. He completed his MBBS from DIP CARD
+                from London, United Kingdom. Over the years, Dr. Sinha has worked in various hospitals. Dr. AHM Masud
+                Sinha has worked at Euro Bangla Heart Hospital, National Heart Foundation, Z H Sikder Women&apos;s
+                Medical College & Hospital, AMZ Hospital, and Al Sahna Center under King Khaled Hospital, Riyadh, Saudi
+                Arabia. Dr. Sinha has received local and international training in Invasive and Interventional
+                Cardiology.
               </p>
             </div>
           </div>
@@ -73,21 +86,14 @@ export default function DoctorProfile() {
           {/* Right Column - Image */}
           <div className="cols-span-1">
             <div className="rounded-lg bg-gray-100 w-full">
-              <Image
-                src={doctor}
-                alt="Doctor profile photo"
-                className="object-cover w-full max-h-[500px]"
-                priority
-              />
+              <Image src={doctor} alt="Doctor profile photo" className="object-cover w-full max-h-[500px]" priority />
             </div>
           </div>
         </div>
       </div>
       {/* Appointment times */}
-      <div className="max-w-4xl mx-auto p-4">
-        <h2 className="text-xl font-semibold mb-6 text-center">
-          Appointment Time
-        </h2>
+      <div className="w-full container mx-auto p-4">
+        <h2 className="text-xl font-semibold mb-6 text-center">Appointment Time</h2>
 
         <div className="space-y-4">
           {appointments.map((appointment) => (
