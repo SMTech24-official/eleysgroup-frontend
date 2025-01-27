@@ -13,11 +13,10 @@ const Footer = () => {
         {/* Logo and Description */}
         <div className="flex flex-col justify-center items-center md:items-start">
           <div>
-            <Image src={logo} alt="logo" className="h-10" />
+            <Image src={logo} alt="logo" height={100} width={150} />
           </div>
           <p className="text-white text-base font-normal mt-4 max-w-[300px] text-center md:text-left">
-            we specialize in providing personalized care to help you recover,
-            regain strength, and achieve your goals.
+            we specialize in providing personalized care to help you recover, regain strength, and achieve your goals.
           </p>
         </div>
 

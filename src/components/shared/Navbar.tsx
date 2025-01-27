@@ -38,7 +38,7 @@ export function Navbar() {
     >
       <div className="container flex h-[120px] items-center justify-between">
         <Link href={"/"}>
-          <Image src={logo} alt="logo" />
+          <Image src={logo} height={100} width={150} alt="logo" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-6">
@@ -47,13 +47,9 @@ export function Navbar() {
               key={link?.path}
               href={link?.path}
               className={`${
-                pathName === "/" || pathName === "/testimonials"
-                  ? " text-white"
-                  : "text-black"
+                pathName === "/" || pathName === "/testimonials" ? " text-white" : "text-black"
               } text-lg transition-colors hover:text-primary hover:border-b hover:border-primary ${
-                link?.path === pathName
-                  ? "border-b-2 border-primary text-primary"
-                  : ""
+                link?.path === pathName ? "border-b-2 border-primary text-primary" : ""
               }`}
             >
               {link.label}
@@ -72,12 +68,7 @@ export function Navbar() {
               </Button>
             </Link>
 
-            <Button
-              onClick={toggleDrawer}
-              variant="outline"
-              className="md:hidden"
-              size="icon"
-            >
+            <Button onClick={toggleDrawer} variant="outline" className="md:hidden" size="icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -98,12 +89,7 @@ export function Navbar() {
           </div>
         ) : (
           <div className="flex items-center space-x-4 md:hidden">
-            <Button
-              onClick={toggleDrawer}
-              variant="outline"
-              className="md:hidden z-50"
-              size="icon"
-            >
+            <Button onClick={toggleDrawer} variant="outline" className="md:hidden z-50" size="icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -139,13 +125,9 @@ export function Navbar() {
                   key={link?.path}
                   href={link?.path}
                   className={`${
-                    pathName === "/" || pathName === "/testimonials"
-                      ? " text-black"
-                      : "text-black"
+                    pathName === "/" || pathName === "/testimonials" ? " text-black" : "text-black"
                   } text-lg transition-colors hover:text-primary hover:border-b hover:border-primary ${
-                    link?.path === pathName
-                      ? "border-b-2 border-primary text-primary"
-                      : ""
+                    link?.path === pathName ? "border-b-2 border-primary text-primary" : ""
                   }`}
                 >
                   {link.label}
@@ -153,10 +135,7 @@ export function Navbar() {
               ))}
             </nav>
             <Link href={"/book-appointment"}>
-              <Button
-                variant="secondary"
-                className="bg-primary mt-5 text-foreground hover:bg-primary px-2 py-4"
-              >
+              <Button variant="secondary" className="bg-primary mt-5 text-foreground hover:bg-primary px-2 py-4">
                 Book Appointment
               </Button>
             </Link>
