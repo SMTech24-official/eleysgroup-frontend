@@ -3,27 +3,44 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useSendEmailMutation } from "@/redux/features/contactSlice/contactApi";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export default function ContactForm() {
+  const [sendEmailFn, { isLoading }] = useSendEmailMutation();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormData>();
 
   interface FormData {
     name: string;
-    emailPhone: string;
-    address1: string;
+    email: string;
     country: string;
-    address?: string;
+    address: string;
     phone: string;
     message: string;
   }
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     console.log(data);
+
+    try {
+      const response = await sendEmailFn(data).unwrap();
+
+      if (response.success) {
+        toast.success(response.message);
+        // Clear the form
+        reset();
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again later.");
+      console.log(error);
+    }
   };
 
   return (
@@ -58,21 +75,23 @@ export default function ContactForm() {
                 <Input
                   placeholder="alma.lawson@example.com"
                   className="bg-transparent border placeholder:text-[#98A2B3] border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
-                  {...register("emailPhone", { required: "Email or Phone is required" })}
+                  {...register("email", { required: "Email or Phone is required" })}
                 />
-                {errors.emailPhone && <span className="text-red-500 text-sm">{errors.emailPhone.message}</span>}
+                {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">Address</label>
+                <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">
+                  Phone Number
+                </label>
                 <Input
-                  placeholder="Enter your Address"
-                  className="bg-transparent border placeholder:text-[#98A2B3] border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
-                  {...register("address1", { required: "Address is required" })}
+                  placeholder="Enter your Phone Number"
+                  className="bg-transparent placeholder:text-[#98A2B3] border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
+                  {...register("phone", { required: "Phone Number is required" })}
                 />
-                {errors.address1 && <span className="text-red-500 text-sm">{errors.address1.message}</span>}
+                {errors.phone && <span className="text-red-500 text-sm">{errors.phone.message}</span>}
               </div>
               <div className="space-y-2">
                 <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">Country</label>
@@ -85,18 +104,6 @@ export default function ContactForm() {
               </div>
             </div>
             {/* Phone number */}
-
-            <div className="space-y-2">
-              <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">
-                Phone Number
-              </label>
-              <Input
-                placeholder="Enter your Phone Number"
-                className="bg-transparent placeholder:text-[#98A2B3] border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
-                {...register("phone", { required: "Phone Number is required" })}
-              />
-              {errors.phone && <span className="text-red-500 text-sm">{errors.phone.message}</span>}
-            </div>
 
             <div className="space-y-2">
               <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">Address</label>
@@ -122,7 +129,7 @@ export default function ContactForm() {
               type="submit"
               className="w-full bg-[#FF9AE7] hover:bg-pink-400 rounded-lg h-12 transition-colors text-[#04090D] text-lg font-medium leading-[150%]"
             >
-              Submit Now
+              {isLoading ? "Submitting..." : "Submit Now"}
             </Button>
           </form>
         </div>
