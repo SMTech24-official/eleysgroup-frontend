@@ -10,7 +10,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Logoipsum",
+  title: "TOTAL PHISIO LTD",
   description: "Recover Stronger, Live Better",
 };
 

@@ -3,18 +3,17 @@ import { Navbar } from "@/components/shared/Navbar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Logoipsum",
+  title: "TOTAL PHISIO LTD",
   description: "Recover Stronger, Live Better",
 };
-
 const CommonLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-     <div className="grid grid-cols-[]" >
-     <Navbar />
-      <div>{children}</div>
-      <Footer />
-     </div>
+      <div className="grid grid-cols-[]">
+        <Navbar />
+        <div>{children}</div>
+        <Footer />
+      </div>
     </>
   );
 };
