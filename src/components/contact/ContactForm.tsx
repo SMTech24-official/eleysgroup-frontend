@@ -18,6 +18,7 @@ export default function ContactForm() {
     address1: string;
     country: string;
     address?: string;
+    phone: string;
     message: string;
   }
 
@@ -53,9 +54,7 @@ export default function ContactForm() {
                 {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
               </div>
               <div className="space-y-2">
-                <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">
-                  Email/Phone
-                </label>
+                <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">Email</label>
                 <Input
                   placeholder="alma.lawson@example.com"
                   className="bg-transparent border placeholder:text-[#98A2B3] border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
@@ -84,6 +83,19 @@ export default function ContactForm() {
                 />
                 {errors.country && <span className="text-red-500 text-sm">{errors.country.message}</span>}
               </div>
+            </div>
+            {/* Phone number */}
+
+            <div className="space-y-2">
+              <label className="text-gray-600 text-base font-normal leading-[160%] tracking-[0.32px]">
+                Phone Number
+              </label>
+              <Input
+                placeholder="Enter your Phone Number"
+                className="bg-transparent placeholder:text-[#98A2B3] border border-gray-800 rounded-lg h-12 focus:ring-1 focus:ring-pink-500"
+                {...register("phone", { required: "Phone Number is required" })}
+              />
+              {errors.phone && <span className="text-red-500 text-sm">{errors.phone.message}</span>}
             </div>
 
             <div className="space-y-2">
