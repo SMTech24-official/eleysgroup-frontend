@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,48 +8,52 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { FaStar } from "react-icons/fa";
 import Image from "next/image";
-import userImage from "@/assets/placeholders/user-placeholder.jpg";
+
 import { useRef } from "react";
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
+import { useGetAllReviewsQuery } from "@/redux/features/reviewSlice/reviewApi";
 
-const reviews = [
-  {
-    id: 1,
-    name: "Audrey Stevenson",
-    image: userImage,
-    rating: 5,
-    review:
-      "Thank you for choosing for your recent trip. We're committed to providing an exceptional experience for every client, essential in helping us improve.",
-  },
-  {
-    id: 2,
-    name: "John Doe",
-    image: userImage,
-    rating: 5,
-    review:
-      "Thank you for your trust in us. We are glad to exceed your expectations and ensure a delightful experience.",
-  },
-  {
-    id: 3,
-    name: "Jane Smith",
-    image: userImage,
-    rating: 5,
-    review:
-      "Your satisfaction motivates us to do better. Thank you for your kind words and support!",
-  },
-];
+// const reviews = [
+//   {
+//     id: 1,
+//     name: "Audrey Stevenson",
+//     image: userImage,
+//     rating: 5,
+//     review:
+//       "Thank you for choosing for your recent trip. We're committed to providing an exceptional experience for every client, essential in helping us improve.",
+//   },
+//   {
+//     id: 2,
+//     name: "John Doe",
+//     image: userImage,
+//     rating: 5,
+//     review:
+//       "Thank you for your trust in us. We are glad to exceed your expectations and ensure a delightful experience.",
+//   },
+//   {
+//     id: 3,
+//     name: "Jane Smith",
+//     image: userImage,
+//     rating: 5,
+//     review: "Your satisfaction motivates us to do better. Thank you for your kind words and support!",
+//   },
+// ];
 
 export default function TestimonialSlider() {
   const swiperRef = useRef<SwiperType | null>(null);
+
+  const { data: reviews, isLoading: reviewDataLoading, isError } = useGetAllReviewsQuery({});
+
+  if (isError) {
+    return <p>Failed to load reviews</p>;
+  }
 
   return (
     <div className="py-10 bg-gray-100 h-[650px] flex flex-col justify-center items-center relative">
       <div className="text-center mb-12">
         <h3 className="text-primary text-xl font-semibold mb-3">Our Review</h3>
-        <h2 className="text-2xl md:text-3xl font-semibold text-foreground">
-          What Our Client Say
-        </h2>
+        <h2 className="text-2xl md:text-3xl font-semibold text-foreground">What Our Client Say</h2>
       </div>
       <Swiper
         modules={[Pagination]}
@@ -68,45 +73,42 @@ export default function TestimonialSlider() {
         }}
         className="container mx-auto"
       >
-        {reviews?.map((review) => (
-          <SwiperSlide
-            key={review.id}
-            className="flex justify-center pb-16 container"
-          >
-            <div className="bg-white p-6 shadow-lg rounded-lg text-center w-full min-h-[300px]">
-              <div className="w-20 h-20 rounded-full mx-auto mb-2">
-                <Image
-                  src={review?.image}
-                  alt={review?.name}
-                  className="rounded-full object-cover w-full h-full"
-                />
+        {reviewDataLoading ? (
+          <p>Loading...</p>
+        ) : (
+          reviews?.data?.data?.map((review: any) => (
+            <SwiperSlide key={review.id} className="flex justify-center pb-16 container">
+              <div className="bg-white p-6 shadow-lg rounded-lg text-center w-full min-h-[250px]">
+                <div className="w-20 h-20 rounded-full mx-auto mb-2">
+                  <Image
+                    src={review?.image}
+                    alt={review?.name}
+                    height={500}
+                    width={500}
+                    className="rounded-full object-cover w-full h-full"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold">{review?.name}</h3>
+                <div className="flex justify-center text-yellow-500 my-2">
+                  {Array(review.rating)
+                    .fill(0)
+                    .map((_, i) => (
+                      <FaStar size={20} key={i} />
+                    ))}
+                </div>
+                <p className="text-sm text-gray-600">{review?.message}</p>
               </div>
-              <h3 className="text-xl font-semibold">{review.name}</h3>
-              <div className="flex justify-center text-yellow-500 my-2">
-                {Array(review.rating)
-                  .fill(0)
-                  .map((_, i) => (
-                    <FaStar size={20} key={i} />
-                  ))}
-              </div>
-              <p className="text-sm text-gray-600">{review.review}</p>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          ))
+        )}
       </Swiper>
 
       {/* Custom Navigation Buttons */}
       <div className="absolute bottom-[90px] z-50 flex items-center justify-center gap-20 mt-4">
-        <button
-          className="cursor-pointer"
-          onClick={() => swiperRef.current?.slidePrev()}
-        >
+        <button className="cursor-pointer" onClick={() => swiperRef.current?.slidePrev()}>
           <GrFormPrevious size={20} className="text-primary" />
         </button>
-        <button
-          className="cursor-pointer"
-          onClick={() => swiperRef.current?.slideNext()}
-        >
+        <button className="cursor-pointer" onClick={() => swiperRef.current?.slideNext()}>
           <GrFormNext size={20} className="text-primary" />
         </button>
       </div>
