@@ -1,8 +1,6 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { RiHome5Line } from "react-icons/ri";
-import { HiOutlineUserGroup } from "react-icons/hi2";
 import { FcMenu } from "react-icons/fc";
 import { RxCross2 } from "react-icons/rx";
 import { usePathname } from "next/navigation";
@@ -11,6 +9,7 @@ import { MdOutlineDashboard } from "react-icons/md";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  console.log(pathname);
 
   return (
     <div className="relative">
@@ -35,32 +34,38 @@ const Sidebar = () => {
             <li className="flex gap-4 justify-start items-center">
               <MdOutlineDashboard size={24} />
               <Link
-                href={"/dashboard"}
-                className={`flex items-center space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold ${
-                  pathname === "/dashboard" ? "bg-white text-primary" : "border border-white text-white"
-                }`}
+                href={"/dashboard/all-appointments"}
+                className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
+                  ${
+                    pathname === "/dashboard/all-appointments"
+                      ? "bg-white text-primary"
+                      : "border border-white text-white"
+                  }
+                `}
               >
-                All Helpers
+                All Appointments
+              </Link>
+            </li>{" "}
+            <li className="flex gap-4 justify-start items-center">
+              <MdOutlineDashboard size={24} />
+              <Link
+                href={"/dashboard/create-slots"}
+                className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
+                  ${pathname === "/dashboard/create-slots" ? "bg-white text-primary" : "border border-white text-white"}
+                `}
+              >
+                Create Slots
               </Link>
             </li>
             <li className="flex gap-4 justify-start items-center">
-              <HiOutlineUserGroup size={24} />
+              <MdOutlineDashboard size={24} />
               <Link
-                href={"/dashboard/add-helpers"}
-                className={`flex items-center font-s space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold ${
-                  pathname === "/dashboard/add-helpers" ? "bg-white text-primary" : "border border-white text-white"
-                }`}
+                href={"/dashboard/create-slots"}
+                className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
+                  ${pathname === "/dashboard/create-slots" ? "bg-white text-primary" : "border border-white text-white"}
+                `}
               >
-                Add Helpers
-              </Link>
-            </li>
-            <li className="flex gap-4 justify-start items-center">
-              <RiHome5Line size={24} />
-              <Link
-                href={"/"}
-                className={`flex items-center font-s space-x-2 p-2 rounded text-primary hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold bg-white`}
-              >
-                Back To home
+                Create Slots
               </Link>
             </li>
           </ul>

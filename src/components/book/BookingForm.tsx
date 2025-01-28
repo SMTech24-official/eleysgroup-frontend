@@ -22,6 +22,7 @@ type FormData = {
   service: string;
   provider: string;
   notes: string;
+  date?: string;
 };
 
 export function BookingForm({
@@ -45,7 +46,7 @@ export function BookingForm({
 
   const [createAppointmentFn, { isLoading: appointMentLoading }] = useCreateAppointmentMutation();
 
-  // console.log(data);
+  // console.log(doctorData);
 
   console.log(selectedslot, serviceId);
   const {
@@ -76,6 +77,7 @@ export function BookingForm({
         phone: data.phone,
         notes: data.notes,
         slotId: selectedslot.id,
+        date: selectedslot.startDateTime,
       };
       console.log(formattedData);
       try {
