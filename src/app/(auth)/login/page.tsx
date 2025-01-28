@@ -4,15 +4,42 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Stethoscope, Mail, Lock } from "lucide-react";
+import { useLoginMutation } from "@/redux/features/authSlice/authApi";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loginFn, { isLoading }] = useLoginMutation();
+
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Handle login logic here
     console.log("Login attempted with:", email, password);
+    try {
+      const response = await loginFn({ email, password }).unwrap();
+      console.log(response);
+      //   {
+      //     "success": true,
+      //     "statusCode": 200,
+      //     "message": "User logged in successfully",
+      //     "data": {
+      //         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OThiM2IyYzU0NTdiZDgzNmQ0ZDExNCIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlNVUEVSX0FETUlOIiwiaWF0IjoxNzM4MDcxNzMyLCJleHAiOjE3MzgxNTgxMzJ9.iLKm8ZN_t4gipDAHOiGetq5eZAJIUitkq1IpvXSNFw4"
+      //     }
+      // }
+
+      if (response.success) {
+        // Redirect to dashboard
+        console.log("User logged in successfully");
+        localStorage.setItem("accessToken", response.data.token);
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -55,7 +82,7 @@ export default function LoginPage() {
         </CardContent>
         <CardFooter>
           <Button className="w-full bg-blue-600 hover:bg-blue-700" onClick={handleSubmit}>
-            Log in
+            {isLoading ? "Logging in..." : "Log in"}
           </Button>
         </CardFooter>
       </Card>

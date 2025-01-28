@@ -13,8 +13,16 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
     prepareHeaders: (headers, { getState }) => {
-      const state = getState() as RootState;
-      const token = state?.auth?.token;
+      // const state = getState() as RootState;
+
+      let token = null;
+      if (typeof window !== "undefined") {
+        try {
+          token = localStorage.getItem("accessToken");
+        } catch (error) {
+          console.error("Error accessing localStorage", error);
+        }
+      }
 
       if (token) {
         headers.set("Authorization", `${token}`);
