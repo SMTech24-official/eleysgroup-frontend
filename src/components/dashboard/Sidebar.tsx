@@ -49,12 +49,27 @@ const Sidebar = () => {
             <li className="flex gap-4 justify-start items-center">
               <MdOutlineDashboard size={24} />
               <Link
-                href={"/dashboard/create-slots"}
+                href={"/dashboard/create-service"}
                 className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
-                  ${pathname === "/dashboard/create-slots" ? "bg-white text-primary" : "border border-white text-white"}
+                  ${
+                    pathname === "/dashboard/create-service"
+                      ? "bg-white text-primary"
+                      : "border border-white text-white"
+                  }
                 `}
               >
-                Create Slots
+                Create Services
+              </Link>
+            </li>{" "}
+            <li className="flex gap-4 justify-start items-center">
+              <MdOutlineDashboard size={24} />
+              <Link
+                href={"/dashboard/all-services"}
+                className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
+                  ${pathname === "/dashboard/all-services" ? "bg-white text-primary" : "border border-white text-white"}
+                `}
+              >
+                All Services
               </Link>
             </li>
             <li className="flex gap-4 justify-start items-center">

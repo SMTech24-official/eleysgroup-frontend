@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 import { useGetAllDoctorsQuery } from "@/redux/features/doctorApi/doctorApi";
-import { useEffect } from "react";
+import { useCreateServiceMutation } from "@/redux/features/serviceApi/serviceApi";
+import { toast } from "sonner";
 
 interface ServiceFormData {
   name: string;
@@ -15,7 +15,6 @@ interface ServiceFormData {
   duration: number;
   doctorId: string;
   price: number;
-  isAvailable: boolean;
 }
 
 export default function ServiceForm() {
@@ -27,34 +26,53 @@ export default function ServiceForm() {
   } = useForm<ServiceFormData>();
 
   const { data: doctorsData, error, isLoading } = useGetAllDoctorsQuery({});
+  const [createServiceFn, { isLoading: createServiceMutaitonLoading }] = useCreateServiceMutation();
 
   console.log(doctorsData?.data);
 
   const allDoctors = doctorsData?.data;
-  //   [
-  //     {
-  //         "id": "67938452d30eaf0cd8a20d48",
-  //         "name": "Dr. John Doe",
-  //         "title": "MD",
-  //         "specialization": "Cardiologist",
-  //         "profileImage": "https://nyc3.digitaloceanspaces.com/smtech-space/01 (1).jpg",
-  //         "createdAt": "2025-01-24T12:15:13.888Z",
-  //         "updatedAt": "2025-01-24T12:15:13.888Z"
-  //     }
-  // ]
 
-  //   useEffect(() => {
-  //     // default value for doctorId
-  //     reset({ doctorId: allDoctors[0].id });
-  //   }, []);
-
-  const onSubmit = (data: ServiceFormData) => {
+  const onSubmit = async (data: ServiceFormData) => {
     console.log(data);
-    // Here you would typically send the data to your backend
+
+    const reformedData = {
+      name: data.name,
+      specialization: data.specialization,
+      duration: Number(data.duration),
+      doctorId: data.doctorId,
+      price: Number(data.price),
+    };
+
+    try {
+      const response = await createServiceFn(reformedData).unwrap();
+      console.log(response);
+      if (response.success) {
+        toast.success("Service created successfully");
+        reset({
+          name: "",
+          specialization: "",
+          duration: 0,
+          doctorId: "",
+          price: 0,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong. Please try again later.");
+    }
   };
 
+  if (error) {
+    return <div>Something went wrong</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 max-w-lg mx-auto h-full">
+      <h1 className="text-2xl font-bold text-center underline py-10">Create a new service</h1>
       <div>
         <Label htmlFor="name">Service Name</Label>
         <Controller
@@ -123,16 +141,7 @@ export default function ServiceForm() {
         {errors.price && <p className="text-red-500">{errors.price.message}</p>}
       </div>
 
-      <div className="flex items-center space-x-2">
-        <Controller
-          name="isAvailable"
-          control={control}
-          render={({ field }) => <Switch checked={field.value} onCheckedChange={field.onChange} />}
-        />
-        <Label htmlFor="isAvailable">Is Available</Label>
-      </div>
-
-      <Button type="submit">Create Service</Button>
+      <Button type="submit">{createServiceMutaitonLoading ? "Creating Service..." : "Create Service"}</Button>
     </form>
   );
 }
