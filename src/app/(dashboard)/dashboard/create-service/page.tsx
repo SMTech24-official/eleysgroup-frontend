@@ -113,7 +113,7 @@ export default function ServiceForm() {
           control={control}
           rules={{ required: "Doctor selection is required" }}
           render={({ field }) => (
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <Select onValueChange={field.onChange} value={field.value || ""}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a doctor" />
               </SelectTrigger>
@@ -145,9 +145,3 @@ export default function ServiceForm() {
     </form>
   );
 }
-
-// const doctors = [
-//   { id: "67938452d30eaf0cd8a20d48", name: "Dr. John Doe" },
-//   { id: "67938452d30eaf0cd8a20d49", name: "Dr. Jane Smith" },
-//   { id: "67938452d30eaf0cd8a20d50", name: "Dr. Mike Johnson" },
-// ];

@@ -8,7 +8,7 @@ import { toast } from "sonner";
 // This is a mock function to simulate updating the service on the server
 
 export default function ServicesPage() {
-  const { data: allServices, isLoading: allServiceLoading } = useGetAllServicesQuery({});
+  const { data: allServices, isLoading: allServiceLoading, isError } = useGetAllServicesQuery({});
   const [updateServiceByIdFin] = useUpdateServiceMutation();
   //   console.log(allServices);
 
@@ -52,6 +52,10 @@ export default function ServicesPage() {
   };
   if (allServiceLoading) {
     return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Something went wrong</div>;
   }
 
   return (
