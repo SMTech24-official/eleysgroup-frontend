@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -38,9 +37,7 @@ const Sidebar = () => {
               <Link
                 href={"/dashboard"}
                 className={`flex items-center space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold ${
-                  pathname === "/dashboard"
-                    ? "bg-white text-primary"
-                    : "border border-white text-white"
+                  pathname === "/dashboard" ? "bg-white text-primary" : "border border-white text-white"
                 }`}
               >
                 All Helpers
@@ -51,9 +48,7 @@ const Sidebar = () => {
               <Link
                 href={"/dashboard/add-helpers"}
                 className={`flex items-center font-s space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold ${
-                  pathname === "/dashboard/add-helpers"
-                    ? "bg-white text-primary"
-                    : "border border-white text-white"
+                  pathname === "/dashboard/add-helpers" ? "bg-white text-primary" : "border border-white text-white"
                 }`}
               >
                 Add Helpers
@@ -73,12 +68,7 @@ const Sidebar = () => {
       </div>
 
       {/* Overlay for small screens */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black opacity-50 lg:hidden"
-          onClick={() => setIsOpen(false)}
-        ></div>
-      )}
+      {isOpen && <div className="fixed inset-0 bg-black opacity-50 lg:hidden" onClick={() => setIsOpen(false)}></div>}
     </div>
   );
 };
