@@ -24,28 +24,6 @@ export default function ServicesPage() {
     try {
       // Update the service on the server
       const { id } = updatedService;
-      //   console.log(updatedService);
-      //   {
-      //     "name": "Menstal Hsealth Counsesddfling",
-      //     "specialization": "Psychsaosdlodgy,mental health,coundsseling",
-      //     "duration": 50,
-      //     "doctorId": "67938452d30eaf0cd8a20d48",
-      //     "price": 1000.0,
-      //     "isAvailable": true
-      // }
-
-      // {
-      //     "id": "6798986fa6beeba6e2efad83",
-      //     "name": "Tatum Holcomb Kumba",
-      //     "specialization": "Magni eos dignissimo",
-      //     "duration": 41,
-      //     "price": 70,
-      //     "isAvailable": true,
-      //     "doctorId": "67938452d30eaf0cd8a20d48",
-      //     "createdAt": "2025-01-28T08:42:23.383Z",
-      //     "updatedAt": "2025-01-28T08:42:23.383Z",
-      //     "slots": []
-      // }
 
       const reformedData = {
         name: updatedService.name,
@@ -70,7 +48,6 @@ export default function ServicesPage() {
       console.log(result);
     } catch (error) {
       console.error("Failed to update service:", error);
-      // Handle error (e.g., show an error message to the user)
     }
   };
   if (allServiceLoading) {
