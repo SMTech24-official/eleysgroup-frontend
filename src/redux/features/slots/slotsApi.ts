@@ -3,8 +3,8 @@ import baseApi from "@/redux/api/baseApi";
 const slotsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllSlots: builder.query({
-      query: () => ({
-        url: "/slot",
+      query: ({ page, limit, startDate, endDate }) => ({
+        url: `/slot${page ? `?page=${page}&limit=${limit}&startDate=${startDate}&endDate=${endDate}` : ""}`,
         method: "GET",
       }),
       providesTags: ["Slot", "Appointment", "Service"],
