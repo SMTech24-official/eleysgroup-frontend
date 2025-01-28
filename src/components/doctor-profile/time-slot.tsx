@@ -13,7 +13,7 @@ export function TimeSlot({ time, isSelected, onClick }: TimeSlotProps) {
     const newTime = new Date(time);
     return newTime.toLocaleTimeString();
   };
-  console.log(time);
+  // console.log(time);
   return (
     <Button
       variant="outline"

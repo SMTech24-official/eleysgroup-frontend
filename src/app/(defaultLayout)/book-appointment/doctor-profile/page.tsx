@@ -116,7 +116,7 @@ export default function DoctorProfile() {
               className="bg-primary text-primary-foreground hover:bg-primary/90 px-8"
               disabled={!hasSelectedTime}
               onClick={() => {
-                console.log(selectedTimes);
+                // console.log(selectedTimes);
                 setShowBookingForm(true);
                 // console.log(setScheduleMaindata?.serviceId);
                 // console.log(setScheduleMaindata?.id);

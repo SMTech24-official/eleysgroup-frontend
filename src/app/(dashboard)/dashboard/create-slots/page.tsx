@@ -40,7 +40,7 @@ export default function SlotCreationForm() {
   const serviceId = watch("serviceId");
 
   const onSubmit = async (data: FormValues) => {
-    console.log(data);
+    // console.log(data);
 
     const reformedData = {
       startDate: data.startDate,
@@ -52,7 +52,7 @@ export default function SlotCreationForm() {
 
     try {
       const response = await createSlotFn(reformedData).unwrap();
-      console.log(response);
+      // console.log(response);
       toast.success("Slot created successfully");
       if (response.success) {
         toast.success("Slot created successfully");
@@ -65,7 +65,7 @@ export default function SlotCreationForm() {
         });
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Failed to create slot");
     }
   };

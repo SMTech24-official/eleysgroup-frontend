@@ -28,12 +28,12 @@ export default function ServiceForm() {
   const { data: doctorsData, error, isLoading } = useGetAllDoctorsQuery({});
   const [createServiceFn, { isLoading: createServiceMutaitonLoading }] = useCreateServiceMutation();
 
-  console.log(doctorsData?.data);
+  // console.log(doctorsData?.data);
 
   const allDoctors = doctorsData?.data;
 
   const onSubmit = async (data: ServiceFormData) => {
-    console.log(data);
+    // console.log(data);
 
     const reformedData = {
       name: data.name,
@@ -45,7 +45,7 @@ export default function ServiceForm() {
 
     try {
       const response = await createServiceFn(reformedData).unwrap();
-      console.log(response);
+      // console.log(response);
       if (response.success) {
         toast.success("Service created successfully");
         reset({
@@ -57,7 +57,7 @@ export default function ServiceForm() {
         });
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Something went wrong. Please try again later.");
     }
   };

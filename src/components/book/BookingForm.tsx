@@ -79,11 +79,11 @@ export function BookingForm({
         slotId: selectedslot.id,
         date: selectedslot.startDateTime,
       };
-      console.log(formattedData);
+      // console.log(formattedData);
       try {
         const response = await createAppointmentFn(formattedData).unwrap();
 
-        console.log(response);
+        // console.log(response);
 
         if (response.success) {
           toast.success("Appointment booked successfully");
@@ -92,7 +92,7 @@ export function BookingForm({
         }
       } catch (error) {
         toast.error("Something went wrong. Please try again later.");
-        console.log(error);
+        // console.log(error);
       }
     }
   };

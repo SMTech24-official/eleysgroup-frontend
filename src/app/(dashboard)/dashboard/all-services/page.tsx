@@ -33,7 +33,7 @@ export default function ServicesPage() {
         isAvailable: updatedService.isAvailable,
         doctorId: updatedService?.doctorId,
       };
-      console.log(reformedData, id);
+      // console.log(reformedData, id);
 
       // return;
       const result = await updateServiceByIdFin({ reformedData, id }).unwrap();
@@ -45,7 +45,7 @@ export default function ServicesPage() {
       }
 
       // Update the local state
-      console.log(result);
+      // console.log(result);
     } catch (error) {
       console.error("Failed to update service:", error);
     }

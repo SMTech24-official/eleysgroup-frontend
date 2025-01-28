@@ -9,7 +9,7 @@ import { MdOutlineDashboard } from "react-icons/md";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  console.log(pathname);
+  // console.log(pathname);
 
   return (
     <div className="relative">
@@ -81,6 +81,17 @@ const Sidebar = () => {
                 `}
               >
                 Create Slots
+              </Link>
+            </li>{" "}
+            <li className="flex gap-4 justify-start items-center">
+              <MdOutlineDashboard size={24} />
+              <Link
+                href={"/dashboard/all-slots"}
+                className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
+                  ${pathname === "/dashboard/all-slots" ? "bg-white text-primary" : "border border-white text-white"}
+                `}
+              >
+                All Slots
               </Link>
             </li>
           </ul>

@@ -27,7 +27,7 @@ export default function ContactForm() {
   }
 
   const onSubmit = async (data: FormData) => {
-    console.log(data);
+    // console.log(data);
 
     try {
       const response = await sendEmailFn(data).unwrap();
@@ -39,7 +39,7 @@ export default function ContactForm() {
       }
     } catch (error) {
       toast.error("Something went wrong. Please try again later.");
-      console.log(error);
+      // console.log(error);
     }
   };
 
