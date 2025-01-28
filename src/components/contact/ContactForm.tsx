@@ -37,6 +37,7 @@ export default function ContactForm() {
         // Clear the form
         reset();
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast.error("Something went wrong. Please try again later.");
       // console.log(error);

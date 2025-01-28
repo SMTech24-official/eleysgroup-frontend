@@ -64,6 +64,7 @@ export default function SlotCreationForm() {
           serviceId: "",
         });
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       // console.log(error);
       toast.error("Failed to create slot");
