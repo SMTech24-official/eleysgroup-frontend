@@ -14,32 +14,6 @@ import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 import { useGetAllReviewsQuery } from "@/redux/features/reviewSlice/reviewApi";
 
-// const reviews = [
-//   {
-//     id: 1,
-//     name: "Audrey Stevenson",
-//     image: userImage,
-//     rating: 5,
-//     review:
-//       "Thank you for choosing for your recent trip. We're committed to providing an exceptional experience for every client, essential in helping us improve.",
-//   },
-//   {
-//     id: 2,
-//     name: "John Doe",
-//     image: userImage,
-//     rating: 5,
-//     review:
-//       "Thank you for your trust in us. We are glad to exceed your expectations and ensure a delightful experience.",
-//   },
-//   {
-//     id: 3,
-//     name: "Jane Smith",
-//     image: userImage,
-//     rating: 5,
-//     review: "Your satisfaction motivates us to do better. Thank you for your kind words and support!",
-//   },
-// ];
-
 export default function TestimonialSlider() {
   const swiperRef = useRef<SwiperType | null>(null);
 
@@ -50,8 +24,8 @@ export default function TestimonialSlider() {
   }
 
   return (
-    <div className="py-10 bg-gray-100 h-[650px] flex flex-col justify-center items-center relative">
-      <div className="text-center mb-12">
+    <div className="py-10 bg-gray-100 h-auto xl:flex hidden flex-col justify-center items-center relative">
+      <div className="text-center mb-12 px-4">
         <h3 className="text-primary text-xl font-semibold mb-3">Our Review</h3>
         <h2 className="text-2xl md:text-3xl font-semibold text-foreground">What Our Client Say</h2>
       </div>
@@ -65,19 +39,20 @@ export default function TestimonialSlider() {
         spaceBetween={20}
         slidesPerView={1}
         breakpoints={{
+          640: { slidesPerView: 1 },
           768: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
         }}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
-        className="container mx-auto"
+        className="container mx-auto px-4"
       >
         {reviewDataLoading ? (
           <p>Loading...</p>
         ) : (
           reviews?.data?.data?.map((review: any) => (
-            <SwiperSlide key={review.id} className="flex justify-center pb-16 container">
+            <SwiperSlide key={review.id} className="flex justify-center pb-20 container">
               <div className="bg-white p-6 shadow-lg rounded-lg text-center w-full min-h-[250px]">
                 <div className="w-20 h-20 rounded-full mx-auto mb-2">
                   <Image
