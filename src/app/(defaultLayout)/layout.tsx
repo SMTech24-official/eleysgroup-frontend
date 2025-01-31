@@ -9,10 +9,12 @@ export const metadata: Metadata = {
 const CommonLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <div className="grid grid-cols-[]">
+      <div className="grid min-h-screen grid-rows-[1fr_auto]">
         <Navbar />
         <div>{children}</div>
-        <Footer />
+        <div>
+          <Footer />
+        </div>
       </div>
     </>
   );
