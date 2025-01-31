@@ -12,15 +12,13 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import { getDate } from "@/lib/formatDates";
+import { useDispatch } from "react-redux";
+import { setSelectedSlot, setServiceDetails } from "@/redux/features/appointmentSlice/appointmentSlice";
 
 type FormData = {
-  email: string;
-  phone: number;
-  appointmentDate: string;
   service: string;
   provider: string;
   notes: string;
-  date?: string;
 };
 
 export function BookingForm({
@@ -32,7 +30,7 @@ export function BookingForm({
   selectedslot: any;
   serviceId: string;
 }) {
-  // const [step, setStep] = useState(1);
+  const dispatch = useDispatch();
 
   const { data } = useGetServiceByIdQuery(serviceId, {
     skip: !serviceId,
@@ -46,7 +44,7 @@ export function BookingForm({
 
   // console.log(doctorData);
 
-  console.log(selectedslot, serviceId);
+  // console.log(selectedslot, serviceId);
   const {
     register,
     handleSubmit,
@@ -55,41 +53,38 @@ export function BookingForm({
   } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
+    // serviceId : "679384cc24076000448ac56f"
+
+    dispatch(
+      setSelectedSlot({
+        slotId: selectedslot?.id,
+        startDateTime: selectedslot?.startDateTime,
+        endDateTime: selectedslot?.endDateTime,
+        duration: selectedslot?.duration,
+        isBooked: selectedslot?.isBooked,
+        isAvailable: selectedslot?.isAvailable,
+        serviceId: selectedslot?.serviceId,
+        createdAt: selectedslot?.createdAt,
+        updatedAt: selectedslot?.updatedAt,
+      })
+    );
+
+    dispatch(
+      setServiceDetails({
+        serviceId: serviceId,
+        service: data.service,
+        provider: data.provider,
+        notes: data.notes || "",
+      })
+    );
+
     console.log("Form data at step", ":", data);
-    // if (step === 1) {
-    //   setStep(2);
-    // } else {
+
+    // formData
     //   {
-    //     "serviceId": "6793852f24076000448ac570",
-    //     "email": "belalhossain22000@gmail.com",
-    //     "phone": "1234567890",
-    //     "notes": "Patient needs follow-up",
-    //     "slotId": "679487770e793d78076897b0"
-    // }
-    // console.log("Form submitted:", data);
-    // Handle form submission
-    // const formattedData = {
-    //   serviceId,
-    //   email: data.email,
-    //   phone: data.phone,
-    //   notes: data.notes,
-    //   slotId: selectedslot.id,
-    //   date: selectedslot.startDateTime,
-    // };
-    // console.log(formattedData);
-    // try {
-    //   const response = await createAppointmentFn(formattedData).unwrap();
-    //   // console.log(response);
-    //   if (response.success) {
-    //     toast.success("Appointment booked successfully");
-    //     reset();
-    //     setShowBookingForm(false);
-    //   }
-    //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    // } catch (error) {
-    //   toast.error("Something went wrong. Please try again later.");
-    //   // console.log(error);
-    // }
+    //     "service": "Mental Health Counseling",
+    //     "provider": "Dr. John Doe",
+    //     "notes": "adfafasdf"
     // }
   };
 
@@ -159,7 +154,7 @@ export function BookingForm({
               <Textarea id="notes" placeholder="Write note" {...register("notes")} />
             </div>
             <Button type="submit" className="w-full bg-pink-400 hover:bg-pink-500">
-              Next
+              Book Now
             </Button>
           </>
         </form>
