@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const CommonLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <div className="grid min-h-screen grid-rows-[1fr_auto]">
+      <div className="grid min-h-screen grid-rows-[auto_1fr_auto]">
         <Navbar />
         <div>{children}</div>
         <div>

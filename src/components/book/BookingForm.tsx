@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { getDate } from "@/lib/formatDates";
 import { useDispatch } from "react-redux";
 import { setSelectedSlot, setServiceDetails } from "@/redux/features/appointmentSlice/appointmentSlice";
+import { useRouter } from "next/navigation";
 
 type FormData = {
   service: string;
@@ -31,6 +32,7 @@ export function BookingForm({
   serviceId: string;
 }) {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const { data } = useGetServiceByIdQuery(serviceId, {
     skip: !serviceId,
@@ -78,7 +80,8 @@ export function BookingForm({
       })
     );
 
-    console.log("Form data at step", ":", data);
+    // console.log("Form data at step", ":", data);
+    router.push("/select-payment");
 
     // formData
     //   {

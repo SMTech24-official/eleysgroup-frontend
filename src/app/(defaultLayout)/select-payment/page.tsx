@@ -7,14 +7,17 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { useDispatch } from "react-redux";
 import { setPaymentMethod } from "@/redux/features/paymentSlice/paymentSlice";
+import { useRouter } from "next/navigation";
 
 export default function SelectPayment() {
   const [method, setMethod] = useState<"cash" | "full" | "partial">("full");
+  const router = useRouter();
 
   const dispatch = useDispatch();
 
   const handleNext = () => {
     dispatch(setPaymentMethod(method));
+    router.push("/checkout");
   };
 
   return (
