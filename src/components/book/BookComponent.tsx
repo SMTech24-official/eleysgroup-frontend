@@ -134,6 +134,7 @@ const BookComponent = () => {
                               {openItem !== item.id.toString() ? (
                                 <div className="flex items-center justify-center gap-5">
                                   {item?.duration} mins
+                                  {item?.price && item?.price > 0 && <p>Price - ${item?.price}</p>}
                                   <span>
                                     <svg
                                       xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +149,10 @@ const BookComponent = () => {
                                   <p>Consultant - {item.specialization}</p>
                                 </div>
                               ) : (
-                                <p>Consultant - {item.specialization}</p>
+                                <div className="flex gap-4">
+                                  <p>Consultant - {item.specialization}</p>
+                                  <p>{<span>Price - ${item?.price}</span>}</p>
+                                </div>
                               )}
                             </div>
                           </AccordionTrigger>

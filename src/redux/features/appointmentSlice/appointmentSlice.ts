@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Slot {
   slotId: string;
@@ -10,6 +10,7 @@ interface Slot {
   serviceId: string;
   createdAt: string;
   updatedAt: string;
+  price: number;
 }
 
 interface Service {
@@ -30,7 +31,7 @@ const initialState: AppointmentState = {
 };
 
 const appointmentSlice = createSlice({
-  name: 'appointment',
+  name: "appointment",
   initialState,
   reducers: {
     setSelectedSlot(state, action: PayloadAction<Slot>) {

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PaymentState {
-  method: "cash" | "full" | "partial" | null;
+  method: "CASH" | "FULL" | "PARTIAL" | null;
 }
 
 const initialState: PaymentState = {
@@ -16,7 +16,7 @@ const paymentSlice = createSlice({
       state.method = action.payload;
     },
     removePaymentMethod(state) {
-      state.method = "full";
+      state.method = "FULL";
     },
   },
 });

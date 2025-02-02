@@ -10,7 +10,7 @@ import { setPaymentMethod } from "@/redux/features/paymentSlice/paymentSlice";
 import { useRouter } from "next/navigation";
 
 export default function SelectPayment() {
-  const [method, setMethod] = useState<"cash" | "full" | "partial">("full");
+  const [method, setMethod] = useState<"CASH" | "PARTIAL" | "FULL">("FULL");
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -28,25 +28,25 @@ export default function SelectPayment() {
 
           <RadioGroup
             value={method}
-            onValueChange={(value: string) => setMethod(value as "cash" | "full" | "partial")}
+            onValueChange={(value: string) => setMethod(value as "CASH" | "FULL" | "PARTIAL")}
             className="flex mb-8"
           >
             <div className="flex items-center gap-2 border rounded-lg p-4 hover:bg-gray-50 shadow-lg shadow-pink-400/40">
-              <RadioGroupItem value="partial" id="partial" className="text-pink-500 border-pink-500" />
+              <RadioGroupItem value="PARTIAL" id="partial" className="text-pink-500 border-pink-500" />
               <Label htmlFor="partial" className="flex-grow cursor-pointer">
                 Partial Payment
               </Label>
             </div>
 
             <div className="flex items-center gap-2 border rounded-lg p-4 hover:bg-gray-50 shadow-lg shadow-pink-400/40">
-              <RadioGroupItem value="full" id="full" className="text-pink-500 border-pink-500" />
+              <RadioGroupItem value="FULL" id="full" className="text-pink-500 border-pink-500" />
               <Label htmlFor="full" className="flex-grow cursor-pointer">
                 Full Payment
               </Label>
             </div>
 
             <div className="flex items-center gap-2 border rounded-lg p-4 hover:bg-gray-50 shadow-lg shadow-pink-400/40">
-              <RadioGroupItem value="cash" id="cash" className="text-pink-500 border-pink-500" />
+              <RadioGroupItem value="CASH" id="cash" className="text-pink-500 border-pink-500" />
               <Label htmlFor="cash" className="flex-grow cursor-pointer">
                 Cash Payment
               </Label>

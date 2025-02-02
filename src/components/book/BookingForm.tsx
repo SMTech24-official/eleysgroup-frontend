@@ -42,6 +42,8 @@ export function BookingForm({
     skip: !data?.data?.doctorId,
   });
 
+  console.log(data);
+
   // const [createAppointmentFn, { isLoading: appointMentLoading }] = useCreateAppointmentMutation();
 
   // console.log(doctorData);
@@ -54,8 +56,20 @@ export function BookingForm({
     reset,
   } = useForm<FormData>();
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (formData: FormData) => {
     // serviceId : "679384cc24076000448ac56f"
+
+    //   {
+    //     "id": "679384cc24076000448ac56f",
+    //     "name": "Mental Health Counseling",
+    //     "specialization": "Psychology,mental health,counseling",
+    //     "duration": 50,
+    //     "price": 200,
+    //     "isAvailable": true,
+    //     "doctorId": "67938452d30eaf0cd8a20d48",
+    //     "createdAt": "2025-01-24T12:17:16.634Z",
+    //     "updatedAt": "2025-01-24T12:17:16.634Z"
+    // }
 
     dispatch(
       setSelectedSlot({
@@ -68,27 +82,20 @@ export function BookingForm({
         serviceId: selectedslot?.serviceId,
         createdAt: selectedslot?.createdAt,
         updatedAt: selectedslot?.updatedAt,
+        price: data?.data?.price,
       })
     );
 
     dispatch(
       setServiceDetails({
         serviceId: serviceId,
-        service: data.service,
-        provider: data.provider,
-        notes: data.notes || "",
+        service: formData.service,
+        provider: formData.provider,
+        notes: formData.notes || "",
       })
     );
 
-    // console.log("Form data at step", ":", data);
     router.push("/select-payment");
-
-    // formData
-    //   {
-    //     "service": "Mental Health Counseling",
-    //     "provider": "Dr. John Doe",
-    //     "notes": "adfafasdf"
-    // }
   };
 
   useEffect(() => {
