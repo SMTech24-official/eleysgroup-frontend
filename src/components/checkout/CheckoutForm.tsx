@@ -104,7 +104,7 @@ export default function CheckoutForm({ formData }: { formData: FormData }) {
             disabled={!stripe || loading}
             className="w-full bg-[#ff9ce7] disabled:bg-pink-100 text-white py-2 rounded-md hover:bg-pink-600 transition-colors"
           >
-            {loading ? "Saving..." : "Save Card"}
+            {loading ? " Loading... " : "Proceed"}
             {/* Save Card */}
           </button>
 

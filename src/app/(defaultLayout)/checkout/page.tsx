@@ -2,9 +2,12 @@
 import CheckoutForm from "@/components/checkout/CheckoutForm";
 import PersonalInformationForm from "@/components/checkout/PersonalInformationForm";
 import StripeWrapper from "@/components/wrappers/StripeWrapper";
+import { RootState } from "@/redux/store";
+import { PaymentType } from "@/types/paymentTypes";
 
 import { FormData } from "@/types/user.type";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Checkout = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -15,6 +18,8 @@ const Checkout = () => {
     address: "",
     price: null,
   });
+
+  const paymentMethodFromRedux = useSelector((state: RootState) => state.payment.method);
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -27,9 +32,11 @@ const Checkout = () => {
   return (
     <div className="flex gap-5 container my-10">
       <PersonalInformationForm formData={formData} setFormData={setFormData} />
-      <StripeWrapper>
-        <CheckoutForm formData={formData} />
-      </StripeWrapper>
+      {paymentMethodFromRedux !== PaymentType.CASH && (
+        <StripeWrapper>
+          <CheckoutForm formData={formData} />
+        </StripeWrapper>
+      )}
     </div>
   );
 };

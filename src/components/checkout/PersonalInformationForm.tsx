@@ -79,7 +79,7 @@ export default function PersonalInformationForm({ formData, setFormData }: Perso
 
           {paymentMethodFromRedux === PaymentType.CASH && (
             <Button type="submit" className="w-full bg-pink-400 hover:bg-pink-500">
-              Next
+              Submit
             </Button>
           )}
         </form>
