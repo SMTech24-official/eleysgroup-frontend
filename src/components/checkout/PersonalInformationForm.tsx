@@ -6,6 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "../ui/button";
 import { FormData } from "@/types/user.type";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { PaymentType } from "@/types/paymentTypes";
 
 interface PersonalInformationFormProps {
   formData: FormData;
@@ -13,13 +16,10 @@ interface PersonalInformationFormProps {
 }
 
 export default function PersonalInformationForm({ formData, setFormData }: PersonalInformationFormProps) {
-  // const [formData, setFormData] = useState({
-  //   firstName: "",
-  //   lastName: "",
-  //   email: "",
-  //   phoneNumber: "",
-  //   address: "",
-  // });
+  // get payment option form redux
+
+  const payment = useSelector((state: RootState) => state.payment.method);
+  console.log(payment);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
@@ -33,6 +33,8 @@ export default function PersonalInformationForm({ formData, setFormData }: Perso
     event.preventDefault();
     console.log(formData);
   };
+
+  const paymentMethodFromRedux = useSelector((state: RootState) => state.payment.method);
 
   return (
     <Card className="w-full max-w-2xl mx-auto border border-[#c7c2d7] bg-transparent">
@@ -68,9 +70,18 @@ export default function PersonalInformationForm({ formData, setFormData }: Perso
             <Textarea id="address" className="min-h-[100px]" value={formData.address} onChange={handleChange} />
           </div>
 
-          <Button type="submit" className="w-full bg-pink-400 hover:bg-pink-500">
-            Next
-          </Button>
+          {payment === PaymentType.PARTIAL && (
+            <div>
+              <Label htmlFor="price">Price</Label>
+              <Input id="price" type="number" value={formData.price ?? ""} onChange={handleChange} />
+            </div>
+          )}
+
+          {paymentMethodFromRedux === PaymentType.CASH && (
+            <Button type="submit" className="w-full bg-pink-400 hover:bg-pink-500">
+              Next
+            </Button>
+          )}
         </form>
       </CardContent>
     </Card>

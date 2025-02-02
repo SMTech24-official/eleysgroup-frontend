@@ -2,6 +2,7 @@
 import CheckoutForm from "@/components/checkout/CheckoutForm";
 import PersonalInformationForm from "@/components/checkout/PersonalInformationForm";
 import StripeWrapper from "@/components/wrappers/StripeWrapper";
+
 import { FormData } from "@/types/user.type";
 import { useState } from "react";
 
@@ -12,12 +13,22 @@ const Checkout = () => {
     email: "",
     phoneNumber: "",
     address: "",
+    price: null,
   });
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(formData);
+  //   if ((formData?.price ?? 0) > (priceFromRedux ?? 0)) {
+  //     toast.message("Price can't be greater than payable amount");
+  //   }
+  // };
+
   return (
     <div className="flex gap-5 container my-10">
       <PersonalInformationForm formData={formData} setFormData={setFormData} />
       <StripeWrapper>
-        <CheckoutForm />
+        <CheckoutForm formData={formData} />
       </StripeWrapper>
     </div>
   );

@@ -15,4 +15,5 @@ export interface FormData {
   email: string;
   phoneNumber: string;
   address: string;
+  price?: number | null;
 }
