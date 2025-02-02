@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  CardElement,
-  useStripe,
-  useElements,
-  CardNumberElement,
-  CardExpiryElement,
-  CardCvcElement,
-} from "@stripe/react-stripe-js";
+import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
 
 export default function CheckoutForm() {
@@ -23,11 +16,19 @@ export default function CheckoutForm() {
     setLoading(true);
     setError(null);
 
-    const cardElement = elements.getElement(CardElement);
+    const cardNumberElement = elements.getElement(CardNumberElement);
+    const cardExpiryElement = elements.getElement(CardExpiryElement);
+    const cardCvcElement = elements.getElement(CardCvcElement);
+
+    if (!cardNumberElement || !cardExpiryElement || !cardCvcElement) {
+      setError("Card element not found.");
+      setLoading(false);
+      return;
+    }
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
-      card: cardElement!,
+      card: cardNumberElement,
     });
 
     if (error) {
@@ -42,34 +43,36 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+    <form onSubmit={handleSubmit} className="w-full  mx-auto border border-[#c7c2d7] p-6 rounded-lg ">
       <h2 className="text-xl font-bold mb-4">Payment Method</h2>
 
-      <div>
-        <label htmlFor="card-number" className="block text-sm font-medium text-gray-700 mb-1">
-          Card Number
-        </label>
-        <div className="p-2 border rounded-md">
-          <CardNumberElement id="card-number" className="w-full" options={{ style: tailwindStyle }} />
-        </div>
-      </div>
-
-      {/* Expiry Date, CVC, and Zip Code */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="flex flex-col gap-5">
         <div>
-          <label htmlFor="card-expiry" className="block text-sm font-medium text-gray-700 mb-1">
-            Expiration date
+          <label htmlFor="card-number" className="text-[#475467] text-[20px]  font-normal leading-normal">
+            Card Number
           </label>
-          <div className="p-2 border rounded-md">
-            <CardExpiryElement id="card-expiry" className="w-full" options={{ style: tailwindStyle }} />
+          <div className="p-2 mt-2 border rounded-md">
+            <CardNumberElement id="card-number" className="w-full" options={{ style: tailwindStyle }} />
           </div>
         </div>
-        <div>
-          <label htmlFor="card-cvc" className="block text-sm font-medium text-gray-700 mb-1">
-            Security code (CVC)
-          </label>
-          <div className="p-2 border rounded-md">
-            <CardCvcElement id="card-cvc" className="w-full" options={{ style: tailwindStyle }} />
+
+        {/* Expiry Date, CVC, and Zip Code */}
+        <div className="grid grid-cols-2 gap-4 mb-5">
+          <div>
+            <label htmlFor="card-expiry" className="text-[#475467] text-[20px] font-normal leading-normal">
+              Expiration date
+            </label>
+            <div className="p-2 mt-2 border rounded-md">
+              <CardExpiryElement id="card-expiry" className="w-full" options={{ style: tailwindStyle }} />
+            </div>
+          </div>
+          <div>
+            <label htmlFor="card-cvc" className="text-[#475467] text-[20px] font-normal leading-normal">
+              Security code
+            </label>
+            <div className="p-2 mt-2 border rounded-md">
+              <CardCvcElement id="card-cvc" className="w-full" options={{ style: tailwindStyle }} />
+            </div>
           </div>
         </div>
       </div>
@@ -77,7 +80,7 @@ export default function CheckoutForm() {
       <button
         type="submit"
         disabled={!stripe || loading}
-        className="w-full bg-orange-500 disabled:bg-orange-400 text-white py-2 rounded-md hover:bg-orange-600 transition-colors"
+        className="w-full bg-[#ff9ce7] disabled:bg-pink-100 text-white py-2 rounded-md hover:bg-pink-600 transition-colors"
       >
         {loading ? "Saving..." : "Save Card"}
         {/* Save Card */}
@@ -101,6 +104,6 @@ const tailwindStyle = {
     },
   },
   invalid: {
-    color: "#fa755a",
+    color: "#9e2146",
   },
 };
