@@ -1,16 +1,24 @@
 "use client";
 
+import { useCreateAppointmentMutation } from "@/redux/features/appointmentSlice/appointmentApi";
 import { RootState } from "@/redux/store";
+import { PaymentType } from "@/types/paymentTypes";
 import { FormData } from "@/types/user.type";
 import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "sonner";
 
 export default function CheckoutForm({ formData }: { formData: FormData }) {
   // get price form redux
 
+  const [bookAppointmentMutaionFn, { isLoading: bookAppointmentLoading }] = useCreateAppointmentMutation();
+
   const priceFromRedux = useSelector((state: RootState) => state.appointment.selectedSlot?.price);
-  console.log(priceFromRedux);
+  // console.log(priceFromRedux);
+  const servicedatafromRedux = useSelector((state: RootState) => state.appointment.serviceDetails);
+  const slotdatafromRedux = useSelector((state: RootState) => state.appointment.selectedSlot);
+  const payment = useSelector((state: RootState) => state.payment.method);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -51,6 +59,90 @@ export default function CheckoutForm({ formData }: { formData: FormData }) {
     console.log("Payment Method:", paymentMethod);
     // Send `paymentMethod.id` to your backend for processing
     setLoading(false);
+    if (priceFromRedux === null && payment === PaymentType.FULL) {
+      const formtattedData: {
+        serviceId: string | undefined;
+        firstName: string;
+        lastName: string;
+        email: string;
+        phone: string;
+        address: string;
+        notes: string | undefined;
+        slotId: string | undefined;
+        paymentType: "CASH" | "FULL" | "PARTIAL" | null;
+        paymentMethodId: string;
+        price?: number;
+      } = {
+        serviceId: servicedatafromRedux?.serviceId,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phoneNumber,
+        address: formData.address,
+        notes: servicedatafromRedux?.notes,
+        slotId: slotdatafromRedux?.slotId,
+        paymentType: payment,
+        paymentMethodId: paymentMethod.id,
+      };
+
+      // if (priceFromRedux !== null) {
+      //   formtattedData.price = priceFromRedux;
+      // }
+
+      console.log(formtattedData);
+
+      try {
+        const res = await bookAppointmentMutaionFn(formtattedData).unwrap();
+
+        if (res.success) {
+          console.log(res.data);
+          toast.success("Appointment created successfully");
+        }
+      } catch (e) {
+        console.log(e);
+        toast.error("Failed to create appointment");
+      }
+    } else {
+      const formtattedData: {
+        serviceId: string | undefined;
+        firstName: string;
+        lastName: string;
+        email: string;
+        phone: string;
+        address: string;
+        notes: string | undefined;
+        slotId: string | undefined;
+        paymentType: "CASH" | "FULL" | "PARTIAL" | null;
+        paymentMethodId: string;
+        price?: number;
+      } = {
+        serviceId: servicedatafromRedux?.serviceId,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phoneNumber,
+        address: formData.address,
+        notes: servicedatafromRedux?.notes,
+        slotId: slotdatafromRedux?.slotId,
+        paymentType: payment,
+        paymentMethodId: paymentMethod.id,
+        price: priceFromRedux,
+      };
+
+      console.log(formtattedData);
+
+      try {
+        const res = await bookAppointmentMutaionFn(formtattedData).unwrap();
+
+        if (res.success) {
+          console.log(res.data);
+          toast.success("Appointment created successfully");
+        }
+      } catch (e) {
+        console.log(e);
+        toast.error("Failed to create appointment");
+      }
+    }
   };
 
   return (
@@ -104,7 +196,7 @@ export default function CheckoutForm({ formData }: { formData: FormData }) {
             disabled={!stripe || loading}
             className="w-full bg-[#ff9ce7] disabled:bg-pink-100 text-white py-2 rounded-md hover:bg-pink-600 transition-colors"
           >
-            {loading ? " Loading... " : "Proceed"}
+            {loading || bookAppointmentLoading ? " Loading... " : "Proceed"}
             {/* Save Card */}
           </button>
 
