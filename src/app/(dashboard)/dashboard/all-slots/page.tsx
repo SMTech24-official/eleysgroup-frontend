@@ -5,6 +5,7 @@ import { useGetAllSlotsQuery } from "@/redux/features/slots/slotsApi";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { Calendar, Clock, ChevronLeft, ChevronRight } from "lucide-react";
+import { MdDeleteForever } from "react-icons/md";
 
 const AllSlots = () => {
   const [params, setParams] = useState({
@@ -123,6 +124,9 @@ const AllSlots = () => {
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Available
               </th>
+              <th>
+                <span className="sr-only">Actions</span>
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -161,6 +165,15 @@ const AllSlots = () => {
                     >
                       {slot.isAvailable ? "Yes" : "No"}
                     </span>
+                  </td>
+                  <td className="flex items-center justify-center gap-5">
+                    {/* change availability */}
+                    <button
+                      className={`px-4 py-2 text-white rounded-md ${slot.isAvailable ? "bg-red-500" : "bg-green-500"}`}
+                    >
+                      {slot.isAvailable && !slot.isBooked ? "Disable" : "Enable"}
+                    </button>
+                    <MdDeleteForever className="text-red-500" size={30} />
                   </td>
                 </tr>
               ))
