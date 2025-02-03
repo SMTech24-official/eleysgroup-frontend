@@ -2,10 +2,9 @@
 "use client";
 
 import { useGetAllSlotsQuery, useUpdateSlotMutation } from "@/redux/features/slots/slotsApi";
+import { Calendar, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import type React from "react";
 import { useEffect, useState } from "react";
-import { Calendar, Clock, ChevronLeft, ChevronRight } from "lucide-react";
-import { MdDeleteForever } from "react-icons/md";
 
 const AllSlots = () => {
   const [params, setParams] = useState({
@@ -189,6 +188,7 @@ const AllSlots = () => {
                   <td className="flex items-center justify-center gap-5">
                     {/* change availability */}
                     <button
+                      disabled={updateSlotLoading}
                       onClick={() => handleUpdateSlot(slot)}
                       className={`px-4 py-2 text-white rounded-md ${slot.isAvailable ? "bg-red-500" : "bg-green-500"}`}
                     >
