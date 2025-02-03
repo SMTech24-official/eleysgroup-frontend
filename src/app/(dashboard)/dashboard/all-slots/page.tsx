@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useGetAllSlotsQuery } from "@/redux/features/slots/slotsApi";
+import { useGetAllSlotsQuery, useUpdateSlotMutation } from "@/redux/features/slots/slotsApi";
 import type React from "react";
 import { useEffect, useState } from "react";
 import { Calendar, Clock, ChevronLeft, ChevronRight } from "lucide-react";
@@ -14,6 +14,26 @@ const AllSlots = () => {
     startDate: "",
     endDate: "",
   });
+  const [updateSlotMutationFn, { isLoading: updateSlotLoading }] = useUpdateSlotMutation();
+
+  const handleUpdateSlot = async (slot: any) => {
+    console.log(slot);
+    //   {
+    //     "isBooked": true,
+    //     "isAvailable": false
+    // }
+    const data = {
+      isAvailable: !slot.isAvailable,
+      isBooked: !slot.isBooked,
+    };
+
+    try {
+      const response = await updateSlotMutationFn({ data, id: slot.id });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const {
     data: slotsData,
@@ -124,8 +144,8 @@ const AllSlots = () => {
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Available
               </th>
-              <th>
-                <span className="sr-only">Actions</span>
+              <th className="px-4 text-center py-3  text-xs font-bold text-gray-500 uppercase tracking-wider">
+                <span>Actions</span>
               </th>
             </tr>
           </thead>
@@ -169,11 +189,12 @@ const AllSlots = () => {
                   <td className="flex items-center justify-center gap-5">
                     {/* change availability */}
                     <button
+                      onClick={() => handleUpdateSlot(slot)}
                       className={`px-4 py-2 text-white rounded-md ${slot.isAvailable ? "bg-red-500" : "bg-green-500"}`}
                     >
                       {slot.isAvailable && !slot.isBooked ? "Disable" : "Enable"}
                     </button>
-                    <MdDeleteForever className="text-red-500" size={30} />
+                    {/* <MdDeleteForever className="text-red-500" size={30} /> */}
                   </td>
                 </tr>
               ))
