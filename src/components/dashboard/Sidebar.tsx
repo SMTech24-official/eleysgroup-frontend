@@ -4,8 +4,11 @@ import React, { useState } from "react";
 import { FcMenu } from "react-icons/fc";
 import { RxCross2 } from "react-icons/rx";
 import { usePathname } from "next/navigation";
-import { MdOutlineDashboard } from "react-icons/md";
+import { MdMedicalServices, MdOutlineDashboard } from "react-icons/md";
 import { Button } from "../ui/button";
+import { AiFillGold } from "react-icons/ai";
+import { FaPersonRifle } from "react-icons/fa6";
+import { CiLogout } from "react-icons/ci";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,6 +36,19 @@ const Sidebar = () => {
         <nav className="flex flex-col justify-between">
           <ul className="space-y-2">
             <li className="flex gap-4 justify-start items-center">
+              <FaPersonRifle size={24} />
+              <Link
+                href={"/dashboard/edit-propfile"}
+                className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
+                  ${
+                    pathname === "/dashboard/edit-propfile" ? "bg-white text-primary" : "border border-white text-white"
+                  }
+                `}
+              >
+                Edit Profile
+              </Link>
+            </li>{" "}
+            <li className="flex gap-4 justify-start items-center">
               <MdOutlineDashboard size={24} />
               <Link
                 href={"/dashboard/all-appointments"}
@@ -48,7 +64,7 @@ const Sidebar = () => {
               </Link>
             </li>{" "}
             <li className="flex gap-4 justify-start items-center">
-              <MdOutlineDashboard size={24} />
+              <MdMedicalServices size={24} />
               <Link
                 href={"/dashboard/create-service"}
                 className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
@@ -63,7 +79,7 @@ const Sidebar = () => {
               </Link>
             </li>{" "}
             <li className="flex gap-4 justify-start items-center">
-              <MdOutlineDashboard size={24} />
+              <MdMedicalServices size={24} />
               <Link
                 href={"/dashboard/all-services"}
                 className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
@@ -74,7 +90,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li className="flex gap-4 justify-start items-center">
-              <MdOutlineDashboard size={24} />
+              <AiFillGold size={24} />
               <Link
                 href={"/dashboard/create-slots"}
                 className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
@@ -85,7 +101,7 @@ const Sidebar = () => {
               </Link>
             </li>{" "}
             <li className="flex gap-4 justify-start items-center">
-              <MdOutlineDashboard size={24} />
+              <AiFillGold size={24} />
               <Link
                 href={"/dashboard/all-slots"}
                 className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
@@ -97,7 +113,7 @@ const Sidebar = () => {
             </li>
             {/* lgoout button  */}
             <li className="flex gap-4 justify-start items-center">
-              <MdOutlineDashboard size={24} />
+              <CiLogout size={24} />
               <Button
                 onClick={() => {
                   localStorage.removeItem("accessToken");
