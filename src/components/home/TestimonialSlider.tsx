@@ -24,7 +24,7 @@ export default function TestimonialSlider() {
   }
 
   return (
-    <div className="py-10 bg-gray-100 h-auto xl:flex hidden flex-col justify-center items-center relative">
+    <div className="py-10 bg-gray-100 h-auto container  justify-center items-center relative">
       <div className="text-center mb-12 px-4">
         <h3 className="text-primary text-xl font-semibold mb-3">Our Review</h3>
         <h2 className="text-2xl md:text-3xl font-semibold text-foreground">What Our Client Say</h2>
@@ -46,13 +46,13 @@ export default function TestimonialSlider() {
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
-        className="container mx-auto px-4"
+        className="max-w-[100vw]"
       >
         {reviewDataLoading ? (
           <p>Loading...</p>
         ) : (
           reviews?.data?.data?.map((review: any) => (
-            <SwiperSlide key={review.id} className="flex justify-center pb-20 container">
+            <SwiperSlide key={review.id} className="flex justify-center pb-20 !max-w-[100vw] container">
               <div className="bg-white p-6 shadow-lg rounded-lg text-center w-full min-h-[250px]">
                 <div className="w-20 h-20 rounded-full mx-auto mb-2">
                   <Image
@@ -79,7 +79,7 @@ export default function TestimonialSlider() {
       </Swiper>
 
       {/* Custom Navigation Buttons */}
-      <div className="absolute bottom-[90px] z-50 flex items-center justify-center gap-20 mt-4">
+      <div className="absolute bottom-[90px] w-full z-50 flex items-center justify-center gap-20 mt-4">
         <button className="cursor-pointer" onClick={() => swiperRef.current?.slidePrev()}>
           <GrFormPrevious size={20} className="text-primary" />
         </button>
