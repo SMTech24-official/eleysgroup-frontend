@@ -8,8 +8,8 @@ import { useLoginMutation } from "@/redux/features/authSlice/authApi";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin@gmail.com");
+  const [password, setPassword] = useState("12345678");
 
   const [loginFn, { isLoading }] = useLoginMutation();
 
