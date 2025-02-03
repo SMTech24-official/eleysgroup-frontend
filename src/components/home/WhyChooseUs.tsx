@@ -1,11 +1,9 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import tickIcon from "@/assets/icons/tick-mark.svg";
-import healthCareOne from "@/assets/why-choose-us/healthCareOne.png";
-import healthCareTwo from "@/assets/why-choose-us/healthCareTwo.png";
-import healthCareThree from "@/assets/why-choose-us/healthCareThree.png";
 import healthCareFour from "@/assets/why-choose-us/healthCareFour.png";
-import Link from "next/link";
+import healthCareOne from "@/assets/why-choose-us/healthCareOne.png";
+import healthCareThree from "@/assets/why-choose-us/healthCareThree.png";
+import healthCareTwo from "@/assets/why-choose-us/healthCareTwo.png";
+import Image from "next/image";
 
 export default function WhyChooseUs() {
   const benefits = [
@@ -22,13 +20,10 @@ export default function WhyChooseUs() {
           {/* Left Column */}
           <div className="flex flex-col gap-4">
             <h3 className="text-primary text-xl font-semibold">Why Chose Us</h3>
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground">
-              Your Recovery, Our Priority
-            </h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground">Your Recovery, Our Priority</h2>
             <p className="text-foreground leading-relaxed text-base">
-              we combine expertise, personalized care, and advanced techniques
-              to help you achieve your health and wellness goals. Choose us for
-              a path to better mobility, strength, and a pain-free life.
+              we combine expertise, personalized care, and advanced techniques to help you achieve your health and
+              wellness goals. Choose us for a path to better mobility, strength, and a pain-free life.
             </p>
             <ul className="space-y-3">
               {benefits.map((benefit, index) => (
@@ -41,15 +36,15 @@ export default function WhyChooseUs() {
               ))}
             </ul>
             <div className="mt-4">
-            <Link href={"/book-appointment"}>
+              {/* <Link href={"/book-appointment"}>
               <Button className="bg-primary hover:bg-primary/80 text-foreground px-2 py-4">
                 Book Appointment
               </Button>
-            </Link>
+            </Link> */}
             </div>
           </div>
 
-                    {/* Right Column */}
+          {/* Right Column */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-4">
               <div className="relative">

@@ -34,9 +34,7 @@ export default function ServicesSection() {
     <section className="w-full px-4 py-16 bg-[#FFF5F9]">
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h3 className="text-primary text-xl font-semibold mb-3">
-            Our Services
-          </h3>
+          <h3 className="text-primary text-xl font-semibold mb-3">Our Services</h3>
           <h2 className="text-2xl md:text-3xl font-semibold text-foreground">
             Comprehensive care tailored to your needs.
           </h2>
@@ -46,10 +44,7 @@ export default function ServicesSection() {
           {services.map((service, index) => (
             <div key={index} className="relative h-[370px] overflow-hidden">
               <Image
-                src={
-                  service.image ||
-                  "../../assets/placeholders/image_placeholder.png"
-                }
+                src={service.image || "../../assets/placeholders/image_placeholder.png"}
                 alt={service.alt}
                 fill
                 className="object-cover"
@@ -64,11 +59,9 @@ export default function ServicesSection() {
         </div>
 
         <div className="text-center">
-        <Link href={"/book-appointment"}>
-          <Button className="bg-primary hover:bg-primary/80 text-foreground px-2 py-4">
-            Book Appointment
-          </Button>
-        </Link>
+          <Link className="md:hidden" href={"/book-appointment"}>
+            <Button className="bg-primary hover:bg-primary/80 text-foreground px-2 py-4">Book Appointment</Button>
+          </Link>
         </div>
       </div>
     </section>
