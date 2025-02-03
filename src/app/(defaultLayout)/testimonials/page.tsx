@@ -1,6 +1,5 @@
 import AboutSection from "@/components/home/AboutSection";
 import { Banner } from "@/components/home/Banner";
-import { BannerBottom } from "@/components/home/BannerBottom";
 import ServicesSection from "@/components/home/ServicesSection";
 import TestimonialSlider from "@/components/home/TestimonialSlider";
 
@@ -15,7 +14,7 @@ export default function Page() {
       <AboutSection />
       <TestimonialSlider />
       <ServicesSection />
-      <BannerBottom />
+      {/* <BannerBottom /> */}
     </div>
   );
 }
