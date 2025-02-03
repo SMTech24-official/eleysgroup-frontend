@@ -79,7 +79,7 @@ export default function TestimonialSlider() {
       </Swiper>
 
       {/* Custom Navigation Buttons */}
-      <div className="absolute bottom-[90px] w-full z-50 flex items-center justify-center gap-20 mt-4">
+      <div className="absolute bottom-[90px] -ml-4 w-full z-50 flex items-center justify-center gap-20 mt-4">
         <button className="cursor-pointer" onClick={() => swiperRef.current?.slidePrev()}>
           <GrFormPrevious size={20} className="text-primary" />
         </button>
