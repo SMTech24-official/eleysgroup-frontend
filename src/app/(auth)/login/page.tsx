@@ -22,14 +22,6 @@ export default function LoginPage() {
     try {
       const response = await loginFn({ email, password }).unwrap();
       console.log(response);
-      //   {
-      //     "success": true,
-      //     "statusCode": 200,
-      //     "message": "User logged in successfully",
-      //     "data": {
-      //         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OThiM2IyYzU0NTdiZDgzNmQ0ZDExNCIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlNVUEVSX0FETUlOIiwiaWF0IjoxNzM4MDcxNzMyLCJleHAiOjE3MzgxNTgxMzJ9.iLKm8ZN_t4gipDAHOiGetq5eZAJIUitkq1IpvXSNFw4"
-      //     }
-      // }
 
       if (response.success) {
         // Redirect to dashboard

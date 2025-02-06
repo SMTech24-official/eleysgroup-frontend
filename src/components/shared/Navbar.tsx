@@ -47,7 +47,7 @@ export function Navbar() {
               key={link?.path}
               href={link?.path}
               className={`${
-                pathName === "/" || pathName === "/testimonials" ? " text-white" : "text-black"
+                pathName === "/" || pathName === "/testimonials" ? " text-black" : "text-black"
               } text-lg transition-colors hover:text-primary hover:border-b hover:border-primary ${
                 link?.path === pathName ? "border-b-2 border-primary text-primary" : ""
               }`}

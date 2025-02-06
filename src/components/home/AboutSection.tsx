@@ -4,7 +4,7 @@ import { HiCheckBadge } from "react-icons/hi2";
 
 export default function AboutSection() {
   return (
-    <section className="w-full bg-gray-50 py-16 px-4 md:px-6 lg:px-8">
+    <section className="w-full mt-20 bg-gray-50 py-16 px-4 md:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
         {/* Left side - Image */}
         <div className="relative aspect-square md:aspect-auto md:h-[600px] ">
