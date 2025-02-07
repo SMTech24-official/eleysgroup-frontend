@@ -5,10 +5,11 @@ import EditReviewForm from "@/components/dashboard/review/EditReview";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useGetAllReviewsQuery } from "@/redux/features/reviewSlice/reviewApi";
+import { useDeleteReviewMutation, useGetAllReviewsQuery } from "@/redux/features/reviewSlice/reviewApi";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface Review {
   id: string;
@@ -28,9 +29,23 @@ export default function AllReviews() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
-  const handleDelete = (id: string) => {
+  const [deleteFn, { isLoading: deleteLoading }] = useDeleteReviewMutation();
+
+  const handleDelete = async (id: string) => {
     // Implement delete functionality here
     console.log("Delete review with id:", id);
+
+    try {
+      const response = await deleteFn(id).unwrap();
+      console.log(response);
+      if (response.success) {
+        console.log("Review deleted successfully");
+        toast.success("Review deleted successfully");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to delete review");
+    }
   };
 
   const handleEditClick = (review: Review) => {
@@ -100,7 +115,7 @@ export default function AllReviews() {
               <Button variant="outline" className="mr-2" onClick={() => handleEditClick(review)}>
                 Edit
               </Button>
-              <Button variant="destructive" onClick={() => handleDelete(review.id)}>
+              <Button disabled={deleteLoading} variant="destructive" onClick={() => handleDelete(review.id)}>
                 Delete
               </Button>
             </CardFooter>
