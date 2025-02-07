@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useUpdateReviewMutation } from "@/redux/features/reviewSlice/reviewApi";
+import { toast } from "sonner";
 
 interface Review {
   id: string;
@@ -17,6 +19,8 @@ interface Review {
 }
 
 export default function EditReviewForm({ review }: { review: Review }) {
+  const [updateReview, { isLoading: updateReviewIsLoading }] = useUpdateReviewMutation();
+
   const { control, handleSubmit, reset } = useForm({
     defaultValues: review,
   });
@@ -27,8 +31,31 @@ export default function EditReviewForm({ review }: { review: Review }) {
     setImagePreview(review.image);
   }, [review, reset]);
 
-  const onSubmit = (data: Review) => {
+  const onSubmit = async (data: Review) => {
     console.log(data);
+    const formData = new FormData();
+    if (data.image) {
+      formData.append("image", data.image[0]);
+    }
+    const reformedData = {
+      name: data.name,
+      rating: data.rating,
+      message: data.message,
+    };
+
+    formData.append("data", JSON.stringify(reformedData));
+
+    try {
+      const response = await updateReview({ formData, id: review?.id }).unwrap();
+      console.log(response);
+      if (response.success) {
+        console.log("Review updated successfully");
+        toast.success("Review updated successfully");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update review");
+    }
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
