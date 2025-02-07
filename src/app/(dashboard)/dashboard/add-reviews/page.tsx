@@ -9,6 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
+import { useCreateReviewMutation } from "@/redux/features/reviewSlice/reviewApi";
+import { toast } from "sonner";
 
 interface ReviewFormInputs {
   image: FileList;
@@ -18,15 +20,46 @@ interface ReviewFormInputs {
 }
 
 export default function AddReview() {
+  const [createReviewFn, { isLoading: createReviewIsLoading }] = useCreateReviewMutation();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
     setValue,
   } = useForm<ReviewFormInputs>();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  const onSubmit: SubmitHandler<ReviewFormInputs> = (data) => {
+  const onSubmit: SubmitHandler<ReviewFormInputs> = async (data) => {
+    const formData = new FormData();
+
+    if (data.image) {
+      formData.append("image", data.image[0]);
+    }
+
+    const reformedData = {
+      name: data.name,
+      rating: parseInt(data.rating),
+      message: data.message,
+    };
+
+    formData.append("data", JSON.stringify(reformedData));
+
+    try {
+      const response = await createReviewFn(formData).unwrap();
+      console.log(response);
+
+      if (response.success) {
+        console.log("Review added successfully");
+        toast.success("Review added successfully");
+        // reset form
+        reset();
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to add review");
+    }
+
     // Here you would typically send the data to your backend
     console.log(data);
     // Reset form or show success message
@@ -44,7 +77,7 @@ export default function AddReview() {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto mt-10">
+    <Card className="w-full max-w-lg mx-auto mt-10">
       <CardHeader>
         <CardTitle>Submit a Review</CardTitle>
       </CardHeader>
@@ -56,11 +89,15 @@ export default function AddReview() {
               id="image"
               type="file"
               accept="image/*"
+              height={48}
+              width={48}
               {...register("image", { required: "Image is required" })}
               onChange={handleImageChange}
             />
             {errors.image && <p className="text-red-500 text-sm mt-1">{errors.image.message}</p>}
-            {imagePreview && <Image src={imagePreview} alt="Preview" className="mt-2 max-w-full h-auto" />}
+            {imagePreview && (
+              <Image height={200} width={200} src={imagePreview} alt="Preview" className="mt-2 max-w-full h-auto" />
+            )}
           </div>
 
           <div>
@@ -96,7 +133,11 @@ export default function AddReview() {
             {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
           </div>
 
-          <Button type="submit" className="w-full bg-primary text-white hover:bg-pink-500">
+          <Button
+            disabled={createReviewIsLoading}
+            type="submit"
+            className="w-full bg-primary text-white hover:bg-pink-500"
+          >
             Submit Review
           </Button>
         </form>
