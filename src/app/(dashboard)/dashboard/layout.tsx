@@ -15,10 +15,9 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   }, [router]);
 
   return (
-    <div className="flex">
-      <div className="w-fit h-screen overflow-hidden overflow-y-auto">
-        <Sidebar />
-      </div>
+    <div className="flex h-screen">
+      <Sidebar />
+
       <div className="p-4 w-full h-screen overflow-hidden overflow-y-auto">{children}</div>
     </div>
   );
