@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import EditReviewForm from "@/components/dashboard/review/EditReview";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useGetAllReviewsQuery } from "@/redux/features/reviewSlice/reviewApi";
 import { Star } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 interface Review {
   id: string;
@@ -21,19 +23,55 @@ interface Review {
 export default function AllReviews() {
   const { data, isLoading } = useGetAllReviewsQuery({});
   const allReviewsFromDatabase = data?.data?.data || [];
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedReview, setSelectedReview] = useState<Review | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
   const handleDelete = (id: string) => {
     // Implement delete functionality here
     console.log("Delete review with id:", id);
   };
 
+  const handleEditClick = (review: Review) => {
+    setSelectedReview(review);
+    setIsDialogOpen(true);
+  };
+
+  const filteredReviews = allReviewsFromDatabase.filter((review: any) => {
+    const matchesName = review.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesRating = selectedRating === null || review.rating === selectedRating;
+    return matchesName && matchesRating;
+  });
+
   if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">All Reviews</h1>
+      <div className="flex flex-col gap-5 md:flex-row justify-between items-center mb-4">
+        <input
+          type="text"
+          placeholder="Search by name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="mb-4 w-full  p-2 border border-gray-300 rounded"
+        />
+        <select
+          value={selectedRating ?? ""}
+          onChange={(e) => setSelectedRating(e.target.value ? parseInt(e.target.value) : null)}
+          className="mb-4 p-2 border border-gray-300 rounded"
+        >
+          <option value="">All Ratings</option>
+          {[1, 2, 3, 4, 5].map((rating) => (
+            <option key={rating} value={rating}>
+              {rating} Star{rating > 1 ? "s" : ""}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {allReviewsFromDatabase.map((review: Review) => (
+        {filteredReviews.map((review: Review) => (
           <Card key={review.id} className="flex flex-col">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -59,19 +97,9 @@ export default function AllReviews() {
               <p className="text-sm">{review.message}</p>
             </CardContent>
             <CardFooter className="mt-auto">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="outline" className="mr-2">
-                    Edit
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Edit Review</DialogTitle>
-                  </DialogHeader>
-                  <EditReviewForm review={review} />
-                </DialogContent>
-              </Dialog>
+              <Button variant="outline" className="mr-2" onClick={() => handleEditClick(review)}>
+                Edit
+              </Button>
               <Button variant="destructive" onClick={() => handleDelete(review.id)}>
                 Delete
               </Button>
@@ -79,6 +107,16 @@ export default function AllReviews() {
           </Card>
         ))}
       </div>
+      {selectedReview && (
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Edit Review</DialogTitle>
+            </DialogHeader>
+            <EditReviewForm review={selectedReview} onClose={() => setIsDialogOpen(false)} />
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }

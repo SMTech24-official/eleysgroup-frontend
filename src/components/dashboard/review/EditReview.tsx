@@ -18,13 +18,19 @@ interface Review {
   updatedAt: string;
 }
 
-export default function EditReviewForm({ review }: { review: Review }) {
+interface EditReviewFormProps {
+  review: Review;
+  onClose: () => void;
+}
+
+export default function EditReviewForm({ review, onClose }: EditReviewFormProps) {
   const [updateReview, { isLoading: updateReviewIsLoading }] = useUpdateReviewMutation();
 
   const { control, handleSubmit, reset } = useForm({
     defaultValues: review,
   });
   const [imagePreview, setImagePreview] = useState(review.image);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   useEffect(() => {
     reset(review);
@@ -34,8 +40,9 @@ export default function EditReviewForm({ review }: { review: Review }) {
   const onSubmit = async (data: Review) => {
     console.log(data);
     const formData = new FormData();
-    if (data.image) {
-      formData.append("image", data.image[0]);
+    if (selectedImage) {
+      console.log(selectedImage);
+      formData.append("image", selectedImage);
     }
     const reformedData = {
       name: data.name,
@@ -46,11 +53,12 @@ export default function EditReviewForm({ review }: { review: Review }) {
     formData.append("data", JSON.stringify(reformedData));
 
     try {
-      const response = await updateReview({ formData, id: review?.id }).unwrap();
+      const response = await updateReview({ data: formData, id: review?.id }).unwrap();
       console.log(response);
       if (response.success) {
         console.log("Review updated successfully");
         toast.success("Review updated successfully");
+        onClose(); // Close the dialog
       }
     } catch (error) {
       console.error(error);
@@ -63,6 +71,7 @@ export default function EditReviewForm({ review }: { review: Review }) {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setImagePreview(imageUrl);
+      setSelectedImage(file);
     }
   };
 
@@ -97,7 +106,9 @@ export default function EditReviewForm({ review }: { review: Review }) {
         )}
         <Input type="file" id="image" accept="image/*" onChange={handleImageChange} />
       </div>
-      <Button type="submit">Save Changes</Button>
+      <Button disabled={updateReviewIsLoading} type="submit">
+        {updateReviewIsLoading ? "Saving..." : "Save Changes"}
+      </Button>
     </form>
   );
 }
