@@ -1,19 +1,21 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
-import { FcMenu } from "react-icons/fc";
-import { RxCross2 } from "react-icons/rx";
 import { usePathname } from "next/navigation";
-import { MdMedicalServices, MdOutlineDashboard } from "react-icons/md";
-import { Button } from "../ui/button";
+import { useState } from "react";
 import { AiFillGold } from "react-icons/ai";
-import { FaPersonRifle } from "react-icons/fa6";
 import { CiLogout } from "react-icons/ci";
+import { FaHome } from "react-icons/fa";
+import { FaFaceLaugh, FaPersonRifle } from "react-icons/fa6";
+import { FcMenu } from "react-icons/fc";
+import { MdMedicalServices, MdOutlineDashboard } from "react-icons/md";
+import { RxCross2 } from "react-icons/rx";
+import { Button } from "../ui/button";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   // console.log(pathname);
+  // const router = useRouter();
 
   return (
     <div className="relative h-full">
@@ -112,23 +114,50 @@ const Sidebar = () => {
                   All Slots
                 </Link>
               </li>
+              <li className="flex gap-4 justify-start items-center">
+                <FaFaceLaugh size={24} />
+                <Link
+                  href={"/dashboard/add-reviews"}
+                  className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
+                  ${pathname === "/dashboard/add-reviews" ? "bg-white text-primary" : "border border-white text-white"}
+                `}
+                >
+                  Add Reviews
+                </Link>
+              </li>
               {/* lgoout button  */}
             </ul>
           </div>
-          <div className="flex gap-4 justify-start items-center">
-            <CiLogout size={24} />
-            <Button
-              onClick={() => {
-                localStorage.removeItem("accessToken");
-                window.location.href = "/login";
-              }}
-              variant={"destructive"}
-              className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-4 justify-start items-center">
+              <FaHome size={24} />
+              <Button
+                onClick={() => {
+                  window.location.href = "/";
+                }}
+                // variant={"destructive"}
+                className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
                   ${pathname === "/dashboard/logout" ? "bg-white text-primary" : "border border-white text-white"}
                 `}
-            >
-              Logout
-            </Button>
+              >
+                Back to Home
+              </Button>
+            </div>
+            <div className="flex gap-4 justify-start items-center">
+              <CiLogout size={24} />
+              <Button
+                onClick={() => {
+                  localStorage.removeItem("accessToken");
+                  window.location.href = "/login";
+                }}
+                variant={"destructive"}
+                className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
+                  ${pathname === "/dashboard/logout" ? "bg-white text-primary" : "border border-white text-white"}
+                `}
+              >
+                Logout
+              </Button>
+            </div>
           </div>
         </nav>
       </div>
