@@ -125,6 +125,17 @@ const Sidebar = () => {
                   Add Reviews
                 </Link>
               </li>
+              <li className="flex gap-4 justify-start items-center">
+                <FaFaceLaugh size={24} />
+                <Link
+                  href={"/dashboard/all-reviews"}
+                  className={`flex items-center  space-x-2 p-2 rounded hover:bg-gray-700 hover:text-white hover:border-none w-full font-semibold 
+                  ${pathname === "/dashboard/all-reviews" ? "bg-white text-primary" : "border border-white text-white"}
+                `}
+                >
+                  All Reviews
+                </Link>
+              </li>
               {/* lgoout button  */}
             </ul>
           </div>
