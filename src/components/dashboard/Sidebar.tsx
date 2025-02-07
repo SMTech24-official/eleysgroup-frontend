@@ -33,7 +33,9 @@ const Sidebar = () => {
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="mb-4 font-bold text-lg">Dashboard</div>
+        <div className="mb-4 font-bold text-lg">
+          <Link href={"/dashboard"}> Dashboard</Link>
+        </div>
         <nav className="flex flex-col h-full justify-between">
           {" "}
           <div>
