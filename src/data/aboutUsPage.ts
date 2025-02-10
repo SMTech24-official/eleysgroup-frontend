@@ -1,4 +1,5 @@
 import headecImage from "@/assets/about/Headache-Migraine.png";
+import tmjImage from "@/assets/about/TMJPhysiotherapy.png";
 
 interface Option {
   title: string;
@@ -48,4 +49,41 @@ const HeadacheMigraineData: Treatment = {
   image: headecImage.src,
 };
 
-export { HeadacheMigraineData };
+const TMJPhysiotherapy: Treatment = {
+  title: "TMJ Physiotherapy Treatment",
+  description: `If you experience jaw pain, clicking, difficulty chewing, or tension around your face and neck, you may have Temporomandibular Joint (TMJ) Dysfunction. This condition can be caused by muscle tightness, joint misalignment, teeth grinding (bruxism), stress, or poor posture. Physiotherapy can help relieve pain, restore jaw function, and prevent future discomfort.`,
+  helpTitle: `How Physiotherapy Can Help`,
+  helpDescription: `Our TMJ treatment approach is designed to reduce pain, improve movement, and address the underlying causes of your symptoms. This includes:`,
+  options: [
+    {
+      title: "Manual Therapy",
+      description: `Gentle joint mobilizations and soft tissue techniques to release muscle tension and improve jaw movement.`,
+    },
+    {
+      title: "Dry Needling & Myofascial Cupping",
+      description: `Targeting trigger points in the jaw, face, and neck to relieve tightness and pain.`,
+    },
+    {
+      title: "Postural Correction",
+      description: ` Addressing head, neck, and shoulder posture to reduce strain on the jaw.`,
+    },
+    {
+      title: "Exercise Therapy",
+      description: `Specific jaw and neck exercises to improve stability, alignment, and muscle coordination.`,
+    },
+    {
+      title: "Relaxation & Stress Management",
+      description: `Techniques to reduce jaw clenching and tension caused by stress.`,
+    },
+    {
+      title: "Electrotherapy & Heat Therapy",
+      description: `Pain relief methods to soothe irritated muscles and joints.`,
+    },
+  ],
+  image: tmjImage.src,
+};
+
+
+
+
+export { HeadacheMigraineData, TMJPhysiotherapy };
