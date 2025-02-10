@@ -14,7 +14,7 @@ interface Treatment {
   image: string;
 }
 
-const HeadacheMigraine: Treatment = {
+const HeadacheMigraineData: Treatment = {
   title: "Headache & Migraine Physiotherapy Treatment",
   description: `If you suffer from frequent headaches or migraines, physiotherapy can be an effective way to reduce pain, improve mobility, and prevent future episodes. Many headaches stem from muscular tension, poor posture, joint dysfunction, or nerve irritation in the neck and shoulders. Our specialized physiotherapy approach targets these underlying causes to provide lasting relief.`,
   helpTitle: `How Physiotherapy Can Help`,
@@ -48,4 +48,4 @@ const HeadacheMigraine: Treatment = {
   image: headecImage.src,
 };
 
-export { HeadacheMigraine };
+export { HeadacheMigraineData };
