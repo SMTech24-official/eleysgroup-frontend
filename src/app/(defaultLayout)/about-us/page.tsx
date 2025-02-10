@@ -5,6 +5,8 @@ import imageTwo from "@/assets/aboutUs-image-two.png";
 import imageThree from "@/assets/aboutUs-image-three.png";
 import imageFour from "@/assets/aboutUs-image-four.png";
 import ServicesSection from "@/components/home/ServicesSection";
+import AboutUsSectionComponent from "@/components/aboutUs/AboutUsSectionComponent";
+import { HeadacheMigraineData } from "@/data/aboutUsPage";
 
 export default function AboutUs() {
   return (
@@ -47,6 +49,10 @@ export default function AboutUs() {
       </div>
       {/* section services */}
       <ServicesSection />
+
+      {/* section one */}
+
+      <AboutUsSectionComponent data={HeadacheMigraineData} />
     </div>
   );
 }
