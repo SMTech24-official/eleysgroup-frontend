@@ -5,7 +5,7 @@ interface Option {
   description: string;
 }
 
-interface Treatment {
+export interface Treatment {
   title: string;
   description: string;
   helpTitle: string;
