@@ -4,6 +4,7 @@ import imageOne from "@/assets/aboutUs-image-one.png";
 import imageTwo from "@/assets/aboutUs-image-two.png";
 import imageThree from "@/assets/aboutUs-image-three.png";
 import imageFour from "@/assets/aboutUs-image-four.png";
+import ServicesSection from "@/components/home/ServicesSection";
 
 export default function AboutUs() {
   return (
@@ -44,6 +45,8 @@ export default function AboutUs() {
           <ImageComponent images={[imageOne.src, imageTwo.src, imageThree.src, imageFour.src]} />
         </div>
       </div>
+      {/* section services */}
+      <ServicesSection />
     </div>
   );
 }
