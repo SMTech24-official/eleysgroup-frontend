@@ -1,4 +1,6 @@
+import ImageComponent from "@/components/shared/ImageComponent";
 import React from "react";
+
 
 export default function AboutUs() {
   return (
@@ -35,7 +37,8 @@ export default function AboutUs() {
           </div>
         </div>
         <div>
-            {/* image section */}
+          {/* image section */}
+          <ImageComponent images={["/images/about-us.jpg"]} />
         </div>
       </div>
     </div>
