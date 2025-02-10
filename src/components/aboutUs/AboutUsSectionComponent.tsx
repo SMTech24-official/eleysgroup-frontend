@@ -9,7 +9,7 @@ interface AboutUsSectionComponentProps {
 }
 
 function AboutUsSectionComponent({ data, bgColor, reverseSide }: AboutUsSectionComponentProps) {
-  console.log(data);
+  // console.log(data);
   return (
     <div className={`${bgColor && "bg-[#f0e7ee]"} `}>
       <div className={`container py-24 flex flex-col-reverse lg:flex-row gap-10 ${reverseSide && "flex-row-reverse"} `}>
