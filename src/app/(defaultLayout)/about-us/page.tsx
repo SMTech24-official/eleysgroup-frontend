@@ -1,14 +1,17 @@
 import ImageComponent from "@/components/shared/ImageComponent";
 import React from "react";
-
+import imageOne from "@/assets/aboutUs-image-one.png";
+import imageTwo from "@/assets/aboutUs-image-two.png";
+import imageThree from "@/assets/aboutUs-image-three.png";
+import imageFour from "@/assets/aboutUs-image-four.png";
 
 export default function AboutUs() {
   return (
     <div className="container">
-      <div>
-        <div>
-          <h1>About Us</h1>
-          <div>
+      <div className="flex gap-10 py-24">
+        <div className="w-1/2 flex flex-col gap-4">
+          <h1 className="text-[#1A1A1A] text-[30px] font-semibold leading-[140%]">About Us</h1>
+          <div className="flex flex-col gap-8 text-[#494949] text-[16px] font-normal leading-[160%]">
             <p>
               Hi, I’m Magda, a passionate and dedicated physiotherapist with over 10 years of experience in helping
               people move better, feel stronger, and recover from pain or injury. With a Master’s Degree in
@@ -36,9 +39,9 @@ export default function AboutUs() {
             </p>
           </div>
         </div>
-        <div>
+        <div className="w-1/2">
           {/* image section */}
-          <ImageComponent images={["/images/about-us.jpg"]} />
+          <ImageComponent images={[imageOne.src, imageTwo.src, imageThree.src, imageFour.src]} />
         </div>
       </div>
     </div>
