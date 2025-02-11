@@ -6,13 +6,19 @@ import imageThree from "@/assets/aboutUs-image-three.png";
 import imageFour from "@/assets/aboutUs-image-four.png";
 import ServicesSection from "@/components/home/ServicesSection";
 import AboutUsSectionComponent from "@/components/aboutUs/AboutUsSectionComponent";
-import { HeadacheMigraineData } from "@/data/aboutUsPage";
+import {
+  HeadacheMigraineData,
+  TMJPhysiotherapy,
+  WetCupping,
+  PhysiotherapyData,
+  MedicalMassageTherapy,
+} from "@/data/aboutUsPage";
 
 export default function AboutUs() {
   return (
     <div className="">
-      <div className="flex container gap-10 py-24">
-        <div className="w-1/2 flex flex-col gap-4">
+      <div className="flex lg:flex-row flex-col container gap-10 lg:py-24">
+        <div className="lg:w-1/2 flex flex-col gap-4">
           <h1 className="text-[#1A1A1A] text-[30px] font-semibold leading-[140%]">About Us</h1>
           <div className="flex flex-col gap-8 text-[#494949] text-[16px] font-normal leading-[160%]">
             <p>
@@ -42,7 +48,7 @@ export default function AboutUs() {
             </p>
           </div>
         </div>
-        <div className="w-1/2">
+        <div className="lg:w-1/2">
           {/* image section */}
           <ImageComponent images={[imageOne.src, imageTwo.src, imageThree.src, imageFour.src]} />
         </div>
@@ -53,7 +59,10 @@ export default function AboutUs() {
       {/* section one */}
 
       <AboutUsSectionComponent data={HeadacheMigraineData} />
-      
+      <AboutUsSectionComponent data={TMJPhysiotherapy} bgColor={true} reverseSide={true} />
+      <AboutUsSectionComponent data={WetCupping} />
+      <AboutUsSectionComponent data={PhysiotherapyData} bgColor={true} reverseSide={true} />
+      <AboutUsSectionComponent data={MedicalMassageTherapy} />
     </div>
   );
 }
