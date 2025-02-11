@@ -10,8 +10,8 @@ import { HeadacheMigraineData } from "@/data/aboutUsPage";
 
 export default function AboutUs() {
   return (
-    <div className="container">
-      <div className="flex gap-10 py-24">
+    <div className="">
+      <div className="flex container gap-10 py-24">
         <div className="w-1/2 flex flex-col gap-4">
           <h1 className="text-[#1A1A1A] text-[30px] font-semibold leading-[140%]">About Us</h1>
           <div className="flex flex-col gap-8 text-[#494949] text-[16px] font-normal leading-[160%]">
@@ -53,6 +53,7 @@ export default function AboutUs() {
       {/* section one */}
 
       <AboutUsSectionComponent data={HeadacheMigraineData} />
+      
     </div>
   );
 }
