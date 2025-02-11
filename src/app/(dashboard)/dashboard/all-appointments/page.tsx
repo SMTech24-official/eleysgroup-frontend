@@ -26,7 +26,7 @@ export default function AllAppointments() {
       </div>
     );
 
-  if (error) return <div> Something went wrong. </div>;
+  if (error) return <div> Something went wrong or no appointment available. </div>;
 
   const filteredAppointments = allAppointments?.filter((appointment: any) => {
     const query = searchQuery.toLowerCase();
