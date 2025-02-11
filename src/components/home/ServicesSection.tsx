@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useGetAllServicesQuery } from "@/redux/features/serviceApi/serviceApi";
 import { useRouter } from "next/navigation";
+import { CustomLoader } from "../shared/CustomLoader";
 
 export default function ServicesSection() {
   const { data: servicesData, isLoading, isError } = useGetAllServicesQuery({});
@@ -95,7 +96,11 @@ export default function ServicesSection() {
   // ]
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <CustomLoader />
+      </div>
+    );
   }
 
   if (isError) {
