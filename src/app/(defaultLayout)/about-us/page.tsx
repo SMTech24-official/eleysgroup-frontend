@@ -17,7 +17,7 @@ import {
 export default function AboutUs() {
   return (
     <div className="">
-      <div className="flex lg:flex-row flex-col container gap-10 lg:py-24">
+      <div className="flex lg:flex-row flex-col container gap-10 lg:py-20">
         <div className="lg:w-1/2 flex flex-col gap-4">
           <h1 className="text-[#1A1A1A] text-[30px] font-semibold leading-[140%]">About Us</h1>
           <div className="flex flex-col gap-8 text-[#494949] text-[16px] font-normal leading-[160%]">
