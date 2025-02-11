@@ -1,25 +1,78 @@
-import ImageComponent from "@/components/shared/ImageComponent";
-import imageOne from "@/assets/aboutUs-image-one.png";
-import imageTwo from "@/assets/aboutUs-image-two.png";
-import imageThree from "@/assets/aboutUs-image-three.png";
-import imageFour from "@/assets/aboutUs-image-four.png";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 import ServicesSection from "@/components/home/ServicesSection";
+import { CustomLoader } from "@/components/shared/CustomLoader";
+import ImageComponent from "@/components/shared/ImageComponent";
+import { useGetServiceByIdQuery } from "@/redux/features/serviceApi/serviceApi";
+import { useParams } from "next/navigation";
 function ServiceDetails() {
+  const params = useParams();
+  const id = params.id;
+
+  const {
+    data: servicesData,
+    isLoading,
+    isError,
+  } = useGetServiceByIdQuery(id, {
+    skip: !id,
+  });
+
+  //   {
+  //     "id": "67ab5530b119272140faf40c",
+  //     "name": "Dry cupping",
+  //     "specialization": "Dry cupping",
+  //     "duration": 45,
+  //     "price": 40,
+  //     "isAvailable": true,
+  //     "doctorId": "67ab50af176179614ad2a9d0",
+  //     "thumbImage": "https://nyc3.digitaloceanspaces.com/smtech-space/my-dino (1).png",
+  //     "galleryImages": [
+  //         {
+  //             "url": "https://nyc3.digitaloceanspaces.com/smtech-space/image2.png"
+  //         },
+  //         {
+  //             "url": "https://nyc3.digitaloceanspaces.com/smtech-space/image1.png"
+  //         },
+  //         {
+  //             "url": "https://nyc3.digitaloceanspaces.com/smtech-space/dry.png"
+  //         },
+  //         {
+  //             "url": "https://nyc3.digitaloceanspaces.com/smtech-space/Frame 2147224570.png"
+  //         }
+  //     ],
+  //     "description": "Dry cupping, also known as air cupping or suction cupping, is a therapeutic technique that involves creating a vacuum within cups and placing them on specific areas of the body. By creating suction, dry cupping helps to stimulate circulation, relieve muscle tension.\nDry cupping therapy offers several benefits, including:",
+  //     "serviceList": [
+  //         "Promoting the skin’s blood flow",
+  //         "Changing the skin’s biomechanical properties",
+  //         "Increasing pain thresholds",
+  //         "Improving local anaerobic (without oxygen) metabolism",
+  //         "Reducing inflammation"
+  //     ],
+  //     "createdAt": "2025-02-11T13:48:32.129Z",
+  //     "updatedAt": "2025-02-11T13:48:32.129Z"
+  // }
+
+  if (isLoading)
+    return (
+      <div>
+        <CustomLoader />
+      </div>
+    );
+  if (isError) return <div>Something went wrong</div>;
+
+  console.log(servicesData?.data);
+
+  console.log(id);
   return (
     <div>
-      <div className="flex py-20 container">
+      <div className="flex py-20 flex-col gap-6 lg:flex-row container">
         <div className="lg:w-1/2 flex flex-col gap-4">
           <div className="flex flex-col gap-4">
-            <h2 className="text-[#3D3D3D] text-[40px] font-semibold leading-[130%]">Dry cupping</h2>
-            <p className="text-[#494949] text-[16px] font-normal leading-[160%]">
-              Dry cupping, also known as air cupping or suction cupping, is a therapeutic technique that involves
-              creating a vacuum within cups and placing them on specific areas of the body. By creating suction, dry
-              cupping helps to stimulate circulation, relieve muscle tension. Dry cupping therapy offers several
-              benefits, including:
-            </p>
+            <h2 className="text-[#3D3D3D] text-[40px] font-semibold leading-[130%]"> {servicesData?.data?.name} </h2>
+            <p className="text-[#494949] text-[16px] font-normal leading-[160%]">{servicesData?.data?.description}</p>
           </div>
           <ul className="text-[#494949] text-[16px] font-normal leading-[160%]">
-            {[1, 2, 3, 4]?.map((item, index) => (
+            {servicesData?.data?.serviceList?.map((item: any, index: number) => (
               <li className="flex gap-2" key={index}>
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
@@ -39,7 +92,7 @@ function ServiceDetails() {
           <p className="text-[#3D3D3D] text-2xl font-semibold leading-[140%]">45 min/ £40</p>
         </div>
         <div className="lg:w-1/2">
-          <ImageComponent images={[imageOne.src, imageTwo.src, imageThree.src, imageFour.src]} />
+          <ImageComponent images={servicesData?.data?.galleryImages} />
         </div>
       </div>
       <ServicesSection />

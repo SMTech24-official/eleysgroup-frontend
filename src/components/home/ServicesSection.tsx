@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 export default function ServicesSection() {
   const { data: servicesData, isLoading, isError } = useGetAllServicesQuery({});
   const router = useRouter();
-  console.log(servicesData?.data);
+  // console.log(servicesData?.data);
   //   [
   //     {
   //         "id": "67ab5530b119272140faf40c",
