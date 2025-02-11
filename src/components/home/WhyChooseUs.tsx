@@ -7,10 +7,10 @@ import Image from "next/image";
 
 export default function WhyChooseUs() {
   const benefits = [
-    "Professional Way To Showcase Your Work",
-    "Plans Your Future Goals",
-    "It Helps In Self Evaluation",
-    "Improves Chances Of Gaining Customers",
+    "TMJ Physiotherapy Treatment",
+    "Wet Cupping (Hijama) Therapy",
+    "Physiotherapy After Plastic Surgery",
+    "Medical Massage Therapy",
   ];
 
   return (
@@ -20,10 +20,11 @@ export default function WhyChooseUs() {
           {/* Left Column */}
           <div className="flex flex-col gap-4">
             <h3 className="text-primary text-xl font-semibold">Why Chose Us</h3>
-            <h2 className="text-2xl md:text-3xl font-semibold text-foreground">Your Recovery, Our Priority</h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-foreground">What to Expect</h2>
             <p className="text-foreground leading-relaxed text-base">
-              we combine expertise, personalized care, and advanced techniques to help you achieve your health and
-              wellness goals. Choose us for a path to better mobility, strength, and a pain-free life.
+              During your assessment, we’ll discuss your headache history, triggers, and lifestyle factors to develop a
+              personalized treatment plan. Whether your headaches are due to tension, migraines, or cervicogenic
+              (neck-related) issues, our goal is to help you regain control and improve your quality of life.
             </p>
             <ul className="space-y-3">
               {benefits.map((benefit, index) => (

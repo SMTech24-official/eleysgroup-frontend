@@ -22,12 +22,13 @@ export default function AboutSection() {
           <div className="space-y-4">
             <p className="text-primary text-xl font-semibold">About Us</p>
             <h2 className="text-2xl md:text-3xl font-semibold text-foreground">
-              Dedicated to Your Health and Well-being
+              Headache & Migraine Physiotherapy Treatment
             </h2>
             <p className="text-foreground leading-relaxed text-base">
-              At Total Physio LTD, we are committed to helping you achieve a pain-free, active lifestyle through
-              personalized physiotherapy treatments. Our expert care focuses on restoring mobility, strength, and
-              confidence, tailored to your unique needs and goals.
+              If you suffer from frequent headaches or migraines, physiotherapy can be an effective way to reduce pain,
+              improve mobility, and prevent future episodes. Many headaches stem from muscular tension, poor posture,
+              joint dysfunction, or nerve irritation in the neck and shoulders. Our specialized physiotherapy approach
+              targets these underlying causes to provide lasting relief.
             </p>
           </div>
 
@@ -36,29 +37,29 @@ export default function AboutSection() {
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <HiCheckBadge className="text-primary w-5 h-5" />
-                <p className="text-gray-700">Expert Care</p>
+                <p className="text-gray-700">Postural Correction</p>
               </div>
               <div className="flex items-center gap-2">
                 <HiCheckBadge className="text-primary w-5 h-5" />
-                <p className="text-gray-700">Personalized Plans</p>
+                <p className="text-gray-700">Manual Therapy</p>
               </div>
               <div className="flex items-center gap-2">
                 <HiCheckBadge className="text-primary w-5 h-5" />
-                <p className="text-gray-700">Advanced Techniques</p>
+                <p className="text-gray-700">Dry Needling & Myofascial Cupping </p>
               </div>
             </div>
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <HiCheckBadge className="text-primary w-5 h-5" />
-                <p className="text-gray-700">Supportive Environment</p>
+                <p className="text-gray-700">Stress & Tension Management</p>
               </div>
               <div className="flex items-center gap-2">
                 <HiCheckBadge className="text-primary w-5 h-5" />
-                <p className="text-gray-700">Recovery Focus</p>
+                <p className="text-gray-700">Electrotherapy & Heat Therapy </p>
               </div>
               <div className="flex items-center gap-2">
                 <HiCheckBadge className="text-primary w-5 h-5" />
-                <p className="text-gray-700">Pain-Free Living</p>
+                <p className="text-gray-700">Exercise & Stretching Programs </p>
               </div>
             </div>
           </div>
