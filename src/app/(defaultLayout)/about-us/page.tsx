@@ -1,17 +1,15 @@
-import ImageComponent from "@/components/shared/ImageComponent";
-import React from "react";
-import imageOne from "@/assets/aboutUs-image-one.png";
-import imageTwo from "@/assets/aboutUs-image-two.png";
-import imageThree from "@/assets/aboutUs-image-three.png";
 import imageFour from "@/assets/aboutUs-image-four.png";
-import ServicesSection from "@/components/home/ServicesSection";
+import imageOne from "@/assets/aboutUs-image-one.png";
+import imageThree from "@/assets/aboutUs-image-three.png";
+import imageTwo from "@/assets/aboutUs-image-two.png";
 import AboutUsSectionComponent from "@/components/aboutUs/AboutUsSectionComponent";
+import ServicesSection from "@/components/home/ServicesSection";
 import {
   HeadacheMigraineData,
+  MedicalMassageTherapy,
+  PhysiotherapyData,
   TMJPhysiotherapy,
   WetCupping,
-  PhysiotherapyData,
-  MedicalMassageTherapy,
 } from "@/data/aboutUsPage";
 import Image from "next/image";
 
