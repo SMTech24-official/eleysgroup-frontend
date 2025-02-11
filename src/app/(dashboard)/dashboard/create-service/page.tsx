@@ -1,17 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useGetAllDoctorsQuery } from "@/redux/features/doctorApi/doctorApi";
-import { useCreateServiceMutation } from "@/redux/features/serviceApi/serviceApi";
-import { toast } from "sonner";
-import { Plus, X } from "lucide-react";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
+
 import { CustomLoader } from "@/components/shared/CustomLoader";
+import { useCreateServiceMutation } from "@/redux/features/serviceApi/serviceApi";
+import { Plus } from "lucide-react";
+import { toast } from "sonner";
 
 interface ServiceFormData {
   name: string;
@@ -19,22 +18,20 @@ interface ServiceFormData {
   duration: number;
   doctorId: string;
   price: number;
-  thumbnail: File | null;
+  thumbnail: File[] | null;
   images: File[];
   points: { name: string }[];
+  description: string;
 }
 
 export default function ServiceForm() {
-  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
-  const [imagesPreview, setImagesPreview] = useState<string[]>([]);
-
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
     register,
-    setValue,
+    // setValue,
   } = useForm<ServiceFormData>({
     defaultValues: {
       points: [],
@@ -43,7 +40,7 @@ export default function ServiceForm() {
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append } = useFieldArray({
     control,
     name: "points",
   });
@@ -53,71 +50,86 @@ export default function ServiceForm() {
 
   const allDoctors = doctorsData?.data;
 
-  const handleThumbnailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setValue("thumbnail", file);
-      setThumbnailPreview(URL.createObjectURL(file));
-    }
-  };
-
-  const handleImagesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files || []);
-
-    const newImages = files.map((file) => URL.createObjectURL(file));
-    setImagesPreview(newImages);
-  };
-
   const onSubmit = async (data: ServiceFormData) => {
+    const formData = new FormData();
+
     console.log(data);
     // return;
 
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("specialization", data.specialization);
-    formData.append("duration", data.duration.toString());
-    formData.append("doctorId", data.doctorId);
-    formData.append("price", data.price.toString());
+    //   {
+    //     "name": "Menstal Hseadsfdlth Counsesddfling",
+    //     "specialization": "Psychsaosdlodgy,mental health,coundsseling",
+    //     "duration": 50,
+    //     "doctorId": "67a0c0c87860ee0d4360ecae",
+    //     "price": 200.0,
+    //     "description": "A comprehensive consultation with our experienced general physician.",
+    //     "serviceList": [
+    //         "Initial check-up",
+    //         "Basic health screening",
+    //         "Prescription if needed"
+    //     ]
+    // }
+
+    const reformedData = {
+      name: data.name,
+      specialization: data.specialization,
+      duration: Number(data.duration),
+      doctorId: data.doctorId,
+      price: Number(data.price),
+      description: data.description,
+      serviceList: data.points.map((point) => point.name),
+    };
+
+    console.log(reformedData);
+    // return;
+
+    formData.append("data", JSON.stringify(reformedData));
     if (data.thumbnail) {
-      formData.append("thumbnail", data.thumbnail);
+      console.log(data.thumbnail);
+      formData.append("thumbImage", data?.thumbnail[0]);
     }
 
-    data.images.forEach((image) => {
-      formData.append(`images`, image);
-    });
+    // if (Array.isArray(data.images) && data.images.length > 0) {
+    //   data.images.forEach((image) => {
+    //     formData.append("galleryImages", image);
+    //   });
+    // }
 
-    data.points.forEach((service, index) => {
-      formData.append(`additionalServices[${index}]`, JSON.stringify(service));
-    });
+    for (let i = 0; i < data.images.length; i++) {
+      formData.append("galleryImages", data.images[i]);
+    }
 
     try {
       const response = await createServiceFn(formData).unwrap();
-      if (response.success) {
-        toast.success("Service created successfully");
-        reset();
-        setThumbnailPreview(null);
-        setImagesPreview([]);
-      }
+      console.log(response);
+      toast.success("Service created successfully");
+      reset();
     } catch (error) {
-      toast.error("Something went wrong. Please try again later.");
-      console.log(error);
+      console.error(error);
+      toast.error("Something went wrong");
     }
   };
 
-  const removeImage = (index: number, type: "thumbnail" | "images") => {
-    if (type === "thumbnail") {
-      setValue("thumbnail", null);
-      setThumbnailPreview(null);
-    } else {
-      const newImages = [...imagesPreview];
-      newImages.splice(index, 1);
-      setImagesPreview(newImages);
-      setValue(
-        "images",
-        newImages.map((url) => new File([], url))
-      );
-    }
-  };
+  // console.log(doctorsData);
+
+  // useEffect()
+
+  //   {
+  //     "success": true,
+  //     "statusCode": 200,
+  //     "message": "Doctors fetched successfully",
+  //     "data": [
+  //         {
+  //             "id": "67a0c0c87860ee0d4360ecae",
+  //             "name": "Dr. John Doe",
+  //             "title": "MD",
+  //             "specialization": "Cardiologist",
+  //             "profileImage": "https://nyc3.digitaloceanspaces.com/smtech-space/iheb-ab-OBufvGMaBaQ-unsplash.jpg",
+  //             "createdAt": "2025-02-03T13:12:40.756Z",
+  //             "updatedAt": "2025-02-03T13:53:25.908Z"
+  //         }
+  //     ]
+  // }
 
   if (error) {
     return <div>Something went wrong</div>;
@@ -202,36 +214,14 @@ export default function ServiceForm() {
 
         <div className="space-y-2">
           <Label htmlFor="thumbnail">Thumbnail Image</Label>
+
           <input
             type="file"
             accept="image/*"
-            {...register("thumbnail", {
-              validate: {
-                // lessThan2MB: (files) => files[0]?.size < 2 * 1024 * 1024 || "Thumbnail size should be less than 2MB",
-                required: (file) => file !== null || "Thumbnail is required",
-              },
-              onChange: handleThumbnailChange,
-            })}
+            {...register("thumbnail")}
             className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
           />
-          {thumbnailPreview && (
-            <div className="relative inline-block mt-2">
-              <Image
-                src={thumbnailPreview || "/placeholder.svg"}
-                alt="Thumbnail Preview"
-                width={150}
-                height={150}
-                className="rounded-lg object-cover"
-              />
-              <button
-                type="button"
-                className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
-                onClick={() => removeImage(0, "thumbnail")}
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-          )}
+
           {errors.thumbnail && <p className="text-red-500">{errors.thumbnail.message}</p>}
         </div>
 
@@ -243,39 +233,26 @@ export default function ServiceForm() {
             multiple
             {...register("images", {
               validate: {
-                // lessThan2MB: (files) =>
-                //   Array.from(files).every((file) => file.size < 2 * 1024 * 1024) ||
-                //   "Each image size should be less than 2MB",
-                // max4Files: (files) => files.length <= 4 || "You can upload up to 4 images",
-                // must include 4 images
                 required: (files) => files.length === 4 || "4 Images are required",
               },
-              onChange: handleImagesChange,
             })}
             className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
           />
-          <div className="mt-4 grid grid-cols-2 gap-4">
-            {imagesPreview.map((src, index) => (
-              <div key={index} className="relative w-fit">
-                <Image
-                  src={src || "/placeholder.svg"}
-                  alt={`Preview ${index + 1}`}
-                  width={150}
-                  height={150}
-                  className="rounded-lg object-cover"
-                />
-                <button
-                  type="button"
-                  className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
-                  onClick={() => removeImage(index, "images")}
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            ))}
-          </div>
+
           {errors.images && <p className="text-red-500">{errors.images.message}</p>}
         </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label>Description</Label>
+        <textarea
+          {...register("description", {
+            required: "Description is required",
+          })}
+          className="block w-full p-2 border border-gray-300 rounded-lg"
+          rows={4}
+        />
+        {errors.description && <p className="text-red-500">{errors.description.message}</p>}
       </div>
 
       <div className="space-y-2">
@@ -289,19 +266,10 @@ export default function ServiceForm() {
               placeholder="List"
               className="flex-grow"
             />
-            <Button
-              type="button"
-              variant="destructive"
-              size="icon"
-              onClick={() => remove(index)}
-              disabled={index === 0}
-            >
-              <X className="h-4 w-4" />
-            </Button>
           </div>
         ))}
         <Button type="button" variant="outline" size="sm" onClick={() => append({ name: "" })} className="w-full mt-2">
-          <Plus className="h-4 w-4 mr-2" /> Add Service
+          <Plus className="h-4 w-4 mr-2" /> Add List
         </Button>
       </div>
 
