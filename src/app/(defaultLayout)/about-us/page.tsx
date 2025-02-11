@@ -59,7 +59,7 @@ export default function AboutUs() {
       {/* section one */}
 
       <AboutUsSectionComponent data={HeadacheMigraineData} />
-      <AboutUsSectionComponent data={TMJPhysiotherapy} bgColor={true} reverseSide={true} />
+      <AboutUsSectionComponent data={TMJPhysiotherapy} bgColor={true} reverseSide={true}  />
       <AboutUsSectionComponent data={WetCupping} />
       <AboutUsSectionComponent data={PhysiotherapyData} bgColor={true} reverseSide={true} />
       <AboutUsSectionComponent data={MedicalMassageTherapy} />

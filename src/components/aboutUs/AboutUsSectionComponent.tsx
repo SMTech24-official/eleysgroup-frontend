@@ -8,11 +8,13 @@ interface AboutUsSectionComponentProps {
   reverseSide?: boolean;
 }
 
-function AboutUsSectionComponent({ data, bgColor, reverseSide }: AboutUsSectionComponentProps) {
+function AboutUsSectionComponent({ data, bgColor, reverseSide = false }: AboutUsSectionComponentProps) {
   // console.log(data);
   return (
     <div className={`${bgColor && "bg-[#f0e7ee]"} `}>
-      <div className={`container py-24 flex flex-col-reverse lg:flex-row gap-10 ${reverseSide && "flex-row-reverse"} `}>
+      <div
+        className={`container py-24 flex flex-col-reverse lg:flex-row gap-10 ${reverseSide && "lg:flex-row-reverse"} `}
+      >
         <div className="w-full lg:w-1/2 flex flex-col gap-8">
           <div>
             <h2 className="text-[#1A1A1A] text-[30px] font-semibold leading-[140%]">{data.title}</h2>

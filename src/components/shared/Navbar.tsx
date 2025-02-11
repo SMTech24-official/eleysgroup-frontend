@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import logo from "@/assets/logo.png";
 
@@ -11,6 +11,10 @@ const NavLink = [
   {
     path: "/",
     label: "Home",
+  },
+  {
+    path: "/about-us",
+    label: "About Us",
   },
   {
     path: "/testimonials",
@@ -29,6 +33,16 @@ export function Navbar() {
   const toggleDrawer = () => {
     setIsDrawerOpen((prev) => !prev);
   };
+
+  // disable scroll when drawer is open
+
+  useEffect(() => {
+    if (isDrawerOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isDrawerOpen]);
 
   return (
     <header
@@ -89,8 +103,21 @@ export function Navbar() {
           </div>
         ) : (
           <div className="flex items-center space-x-4 md:hidden">
-            <Button onClick={toggleDrawer} variant="outline" className="md:hidden z-50" size="icon">
+            <Button
+              style={{
+                // rotate 45deg to create close icon
+                transform: isDrawerOpen ? "rotate(45deg)" : "",
+              }}
+              onClick={toggleDrawer}
+              variant="outline"
+              className="md:hidden z-50"
+              size="icon"
+            >
               <svg
+                style={{
+                  // rotate 45deg to create close icon
+                  transform: isDrawerOpen ? "rotate(45deg)" : "",
+                }}
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
