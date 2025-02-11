@@ -13,6 +13,7 @@ import {
   PhysiotherapyData,
   MedicalMassageTherapy,
 } from "@/data/aboutUsPage";
+import Image from "next/image";
 
 export default function AboutUs() {
   return (
@@ -50,7 +51,53 @@ export default function AboutUs() {
         </div>
         <div className="lg:w-1/2">
           {/* image section */}
-          <ImageComponent images={[imageOne.src, imageTwo.src, imageThree.src, imageFour.src]} />
+          {/* <ImageComponent images={[imageOne.src, imageTwo.src, imageThree.src, imageFour.src]} /> */}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-4">
+              <div className="relative">
+                <Image
+                  src={imageOne.src}
+                  alt="Physical therapy session"
+                  className="object-cover rounded-lg w-full h-auto"
+                  height={400}
+                  width={400}
+                />
+              </div>
+              <div className="relative">
+                <Image
+                  src={imageTwo.src}
+                  alt="Medical consultation"
+                  quality={100}
+                  className="object-cover rounded-lg w-full h-auto"
+                  height={400}
+                  width={400}
+                />
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="relative">
+                <Image
+                  src={imageThree.src}
+                  height={400}
+                  width={400}
+                  alt="Patient care"
+                  quality={100}
+                  className="object-cover rounded-lg w-full h-auto"
+                />
+              </div>
+              <div className="relative">
+                <Image
+                  src={imageFour.src}
+                  height={400}
+                  width={400}
+                  alt="Exercise therapy"
+                  quality={100}
+                  className="object-cover rounded-lg w-full h-auto"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       {/* section services */}
@@ -59,7 +106,7 @@ export default function AboutUs() {
       {/* section one */}
 
       <AboutUsSectionComponent data={HeadacheMigraineData} />
-      <AboutUsSectionComponent data={TMJPhysiotherapy} bgColor={true} reverseSide={true}  />
+      <AboutUsSectionComponent data={TMJPhysiotherapy} bgColor={true} reverseSide={true} />
       <AboutUsSectionComponent data={WetCupping} />
       <AboutUsSectionComponent data={PhysiotherapyData} bgColor={true} reverseSide={true} />
       <AboutUsSectionComponent data={MedicalMassageTherapy} />
