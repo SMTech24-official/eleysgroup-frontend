@@ -31,10 +31,9 @@ export default function ServiceForm() {
     formState: { errors },
     reset,
     register,
-    // setValue,
   } = useForm<ServiceFormData>({
     defaultValues: {
-      points: [],
+      points: [{ name: "" }],
       thumbnail: null,
       images: [],
     },
@@ -53,23 +52,6 @@ export default function ServiceForm() {
   const onSubmit = async (data: ServiceFormData) => {
     const formData = new FormData();
 
-    console.log(data);
-    // return;
-
-    //   {
-    //     "name": "Menstal Hseadsfdlth Counsesddfling",
-    //     "specialization": "Psychsaosdlodgy,mental health,coundsseling",
-    //     "duration": 50,
-    //     "doctorId": "67a0c0c87860ee0d4360ecae",
-    //     "price": 200.0,
-    //     "description": "A comprehensive consultation with our experienced general physician.",
-    //     "serviceList": [
-    //         "Initial check-up",
-    //         "Basic health screening",
-    //         "Prescription if needed"
-    //     ]
-    // }
-
     const reformedData = {
       name: data.name,
       specialization: data.specialization,
@@ -80,20 +62,10 @@ export default function ServiceForm() {
       serviceList: data.points.map((point) => point.name),
     };
 
-    console.log(reformedData);
-    // return;
-
     formData.append("data", JSON.stringify(reformedData));
     if (data.thumbnail) {
-      console.log(data.thumbnail);
       formData.append("thumbImage", data?.thumbnail[0]);
     }
-
-    // if (Array.isArray(data.images) && data.images.length > 0) {
-    //   data.images.forEach((image) => {
-    //     formData.append("galleryImages", image);
-    //   });
-    // }
 
     for (let i = 0; i < data.images.length; i++) {
       formData.append("galleryImages", data.images[i]);
@@ -101,35 +73,15 @@ export default function ServiceForm() {
 
     try {
       const response = await createServiceFn(formData).unwrap();
-      console.log(response);
-      toast.success("Service created successfully");
+      if (response.success) {
+        toast.success("Service created successfully");
+      }
       reset();
     } catch (error) {
-      console.error(error);
       toast.error("Something went wrong");
+      console.log(error);
     }
   };
-
-  // console.log(doctorsData);
-
-  // useEffect()
-
-  //   {
-  //     "success": true,
-  //     "statusCode": 200,
-  //     "message": "Doctors fetched successfully",
-  //     "data": [
-  //         {
-  //             "id": "67a0c0c87860ee0d4360ecae",
-  //             "name": "Dr. John Doe",
-  //             "title": "MD",
-  //             "specialization": "Cardiologist",
-  //             "profileImage": "https://nyc3.digitaloceanspaces.com/smtech-space/iheb-ab-OBufvGMaBaQ-unsplash.jpg",
-  //             "createdAt": "2025-02-03T13:12:40.756Z",
-  //             "updatedAt": "2025-02-03T13:53:25.908Z"
-  //         }
-  //     ]
-  // }
 
   if (error) {
     return <div>Something went wrong</div>;
@@ -218,7 +170,9 @@ export default function ServiceForm() {
           <input
             type="file"
             accept="image/*"
-            {...register("thumbnail")}
+            {...register("thumbnail", {
+              required: "Thumbnail image is required",
+            })}
             className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
           />
 
@@ -258,14 +212,15 @@ export default function ServiceForm() {
       <div className="space-y-2">
         <Label>List Points</Label>
         {fields.map((field, index) => (
-          <div key={field.id} className="flex gap-2">
+          <div key={field.id} className="flex flex-col gap-2">
             <Input
               {...register(`points.${index}.name`, {
-                required: "List  is required",
+                required: "List is required",
               })}
               placeholder="List"
               className="flex-grow"
             />
+            {errors.points?.[index]?.name && <p className="text-red-500">{errors.points[index].name?.message}</p>}
           </div>
         ))}
         <Button type="button" variant="outline" size="sm" onClick={() => append({ name: "" })} className="w-full mt-2">
