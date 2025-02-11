@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import EditUpdateProfileForm from "@/components/dashboard/editProfile/EditUpdateProfileForm";
 import { CustomLoader } from "@/components/shared/CustomLoader";
