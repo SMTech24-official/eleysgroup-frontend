@@ -1,6 +1,6 @@
 "use client";
-
-import { useForm, Controller } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,6 +8,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useGetAllDoctorsQuery } from "@/redux/features/doctorApi/doctorApi";
 import { useCreateServiceMutation } from "@/redux/features/serviceApi/serviceApi";
 import { toast } from "sonner";
+import { Plus, X } from "lucide-react";
+import Image from "next/image";
+import { CustomLoader } from "@/components/shared/CustomLoader";
 
 interface ServiceFormData {
   name: string;
@@ -15,52 +18,79 @@ interface ServiceFormData {
   duration: number;
   doctorId: string;
   price: number;
+  thumbnail: FileList;
+  images: FileList;
+  points: { name: string; price: number }[];
 }
 
 export default function ServiceForm() {
+  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+  const [imagesPreview, setImagesPreview] = useState<string[]>([]);
+
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<ServiceFormData>();
+    register,
+  } = useForm<ServiceFormData>({
+    defaultValues: {
+      points: [{ name: "", price: 0 }],
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "points",
+  });
 
   const { data: doctorsData, error, isLoading } = useGetAllDoctorsQuery({});
-  const [createServiceFn, { isLoading: createServiceMutaitonLoading }] = useCreateServiceMutation();
-
-  // console.log(doctorsData?.data);
+  const [createServiceFn, { isLoading: createServiceMutationLoading }] = useCreateServiceMutation();
 
   const allDoctors = doctorsData?.data;
 
   const onSubmit = async (data: ServiceFormData) => {
-    // console.log(data);
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("specialization", data.specialization);
+    formData.append("duration", data.duration.toString());
+    formData.append("doctorId", data.doctorId);
+    formData.append("price", data.price.toString());
+    formData.append("thumbnail", data.thumbnail[0]);
 
-    const reformedData = {
-      name: data.name,
-      specialization: data.specialization,
-      duration: Number(data.duration),
-      doctorId: data.doctorId,
-      price: Number(data.price),
-    };
+    for (let i = 0; i < data.images.length; i++) {
+      formData.append("images", data.images[i]);
+    }
+
+    data.points.forEach((service, index) => {
+      formData.append(`additionalServices[${index}][name]`, service.name);
+      formData.append(`additionalServices[${index}][price]`, service.price.toString());
+    });
 
     try {
-      const response = await createServiceFn(reformedData).unwrap();
-      // console.log(response);
+      const response = await createServiceFn(formData).unwrap();
       if (response.success) {
         toast.success("Service created successfully");
-        reset({
-          name: "",
-          specialization: "",
-          duration: 0,
-          doctorId: "",
-          price: 0,
-        });
+        reset();
+        setThumbnailPreview(null);
+        setImagesPreview([]);
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      // console.log(error);
       toast.error("Something went wrong. Please try again later.");
+      console.log(error);
     }
+  };
+
+  const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setThumbnailPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    setImagesPreview(files.map((file) => URL.createObjectURL(file)));
   };
 
   if (error) {
@@ -68,12 +98,14 @@ export default function ServiceForm() {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <CustomLoader size={30} />;
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 max-w-lg mx-auto h-full">
-      <h1 className="text-2xl font-bold text-center underline py-10">Create a new service</h1>
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 max-w-xl mx-auto ">
+      <h1 className="text-2xl font-bold text-center underline ">Create a new service</h1>
+
+      {/* Existing fields */}
       <div>
         <Label htmlFor="name">Service Name</Label>
         <Controller
@@ -142,7 +174,90 @@ export default function ServiceForm() {
         {errors.price && <p className="text-red-500">{errors.price.message}</p>}
       </div>
 
-      <Button type="submit">{createServiceMutaitonLoading ? "Creating Service..." : "Create Service"}</Button>
+      {/* New fields */}
+      <div>
+        <Label htmlFor="thumbnail">Thumbnail Image</Label>
+        <Input
+          type="file"
+          accept="image/*"
+          {...register("thumbnail", { required: "Thumbnail is required" })}
+          onChange={handleThumbnailChange}
+        />
+        {errors.thumbnail && <p className="text-red-500">{errors.thumbnail.message}</p>}
+        {thumbnailPreview && (
+          <Image
+            height={200}
+            width={200}
+            src={thumbnailPreview}
+            alt="Thumbnail Preview"
+            className="mt-2 w-32 h-32 object-cover"
+          />
+        )}
+      </div>
+
+      <div>
+        <Label htmlFor="images">Additional Images (4)</Label>
+        <Input
+          type="file"
+          accept="image/*"
+          multiple
+          {...register("images", {
+            required: "At least four images are required",
+            validate: (value) => value.length === 4 || "Please upload 4 images",
+          })}
+          onChange={handleImagesChange}
+        />
+        {errors.images && <p className="text-red-500">{errors.images.message}</p>}
+        <div className="mt-2 grid grid-cols-2 gap-2">
+          {imagesPreview.map((src, index) => (
+            <Image
+              height={200}
+              width={200}
+              key={index}
+              src={src}
+              alt={`Preview ${index + 1}`}
+              className="w-32 h-32 object-cover"
+            />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <Label>List points</Label>
+        {fields.map((field, index) => (
+          <div key={field.id} className="flex gap-2 mt-2">
+            <Input
+              {...register(`points.${index}.name` as const, {
+                required: "Service name is required",
+              })}
+              placeholder="Service name"
+            />
+            <Button
+              type="button"
+              variant="destructive"
+              size="icon"
+              onClick={() => remove(index)}
+              disabled={index === 0}
+              className="flex items-center justify-center w-24 "
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+        ))}
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="mt-2"
+          onClick={() => append({ name: "", price: 0 })}
+        >
+          <Plus className="h-4 w-4 mr-2" /> Add Service
+        </Button>
+      </div>
+
+      <Button type="submit" disabled={createServiceMutationLoading}>
+        {createServiceMutationLoading ? "Creating Service..." : "Create Service"}
+      </Button>
     </form>
   );
 }

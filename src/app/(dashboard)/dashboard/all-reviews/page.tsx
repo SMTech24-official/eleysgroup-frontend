@@ -2,6 +2,7 @@
 "use client";
 
 import EditReviewForm from "@/components/dashboard/review/EditReview";
+import { CustomLoader } from "@/components/shared/CustomLoader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -59,7 +60,13 @@ export default function AllReviews() {
     return matchesName && matchesRating;
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div>
+        {" "}
+        <CustomLoader />
+      </div>
+    );
 
   return (
     <div className="container mx-auto p-4">

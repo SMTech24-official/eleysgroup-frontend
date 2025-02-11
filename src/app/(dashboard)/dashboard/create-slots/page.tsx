@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { useGetAllServicesQuery } from "@/redux/features/serviceApi/serviceApi";
 import { useCreateSlotMutation } from "@/redux/features/slots/slotsApi";
 import { toast } from "sonner";
+import { CustomLoader } from "@/components/shared/CustomLoader";
 
 interface FormValues {
   startDate: string;
@@ -64,7 +65,7 @@ export default function SlotCreationForm() {
           serviceId: "",
         });
       }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       // console.log(error);
       toast.error("Failed to create slot");
@@ -72,7 +73,12 @@ export default function SlotCreationForm() {
   };
 
   if (allServiceLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        {" "}
+        <CustomLoader />
+      </div>
+    );
   }
 
   if (isError) {

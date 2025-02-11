@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import { CustomLoader } from "@/components/shared/CustomLoader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useGetAllAppointmentsQuery } from "@/redux/features/appointmentSlice/appointmentApi";
@@ -18,7 +19,12 @@ export default function AllAppointments() {
 
   console.log(metaData);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div>
+        <CustomLoader />
+      </div>
+    );
 
   if (error) return <div> Something went wrong. </div>;
 

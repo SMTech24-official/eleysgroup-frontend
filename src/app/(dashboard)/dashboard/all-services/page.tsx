@@ -1,6 +1,7 @@
 "use client";
 
 import { ServiceTable } from "@/components/dashboard/allServices/ServiceTable";
+import { CustomLoader } from "@/components/shared/CustomLoader";
 import { useGetAllServicesQuery, useUpdateServiceMutation } from "@/redux/features/serviceApi/serviceApi";
 import React from "react";
 import { toast } from "sonner";
@@ -51,7 +52,12 @@ export default function ServicesPage() {
     }
   };
   if (allServiceLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        {" "}
+        <CustomLoader />
+      </div>
+    );
   }
 
   if (isError) {
