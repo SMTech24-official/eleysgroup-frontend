@@ -1,9 +1,4 @@
-import imageFour from "@/assets/aboutUs-image-four.png";
-import imageOne from "@/assets/aboutUs-image-one.png";
-import imageThree from "@/assets/aboutUs-image-three.png";
-import imageTwo from "@/assets/aboutUs-image-two.png";
 import AboutUsSectionComponent from "@/components/aboutUs/AboutUsSectionComponent";
-import ServicesSection from "@/components/home/ServicesSection";
 import {
   HeadacheMigraineData,
   MedicalMassageTherapy,
@@ -11,13 +6,12 @@ import {
   TMJPhysiotherapy,
   WetCupping,
 } from "@/data/aboutUsPage";
-import Image from "next/image";
 
 export default function AboutUs() {
   return (
     <div className="">
-      <div className="flex lg:flex-row flex-col container gap-10 lg:py-20">
-        <div className="lg:w-1/2 flex flex-col gap-4">
+      {/* <div className="flex lg:flex-row flex-col container gap-10 lg:py-20"> */}
+      {/* <div className="lg:w-1/2 flex flex-col gap-4">
           <h1 className="text-[#1A1A1A] text-[30px] font-semibold leading-[140%]">About Us</h1>
           <div className="flex flex-col gap-8 text-[#494949] text-[16px] font-normal leading-[160%]">
             <p>
@@ -46,11 +40,8 @@ export default function AboutUs() {
               and I’m grateful for the opportunity to make a difference every day. HCPC Registered Physiotherapist
             </p>
           </div>
-        </div>
-        <div className="lg:w-1/2">
-          {/* image section */}
-          {/* <ImageComponent images={[imageOne.src, imageTwo.src, imageThree.src, imageFour.src]} /> */}
-
+        </div> */}
+      {/* <div className="lg:w-1/2">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-4">
               <div className="relative">
@@ -96,10 +87,10 @@ export default function AboutUs() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
       {/* section services */}
-      <ServicesSection />
+      {/* <ServicesSection /> */}
 
       {/* section one */}
 
