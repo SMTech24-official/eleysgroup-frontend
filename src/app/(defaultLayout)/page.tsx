@@ -1,7 +1,4 @@
-import AboutSection from "@/components/home/AboutSection";
-import ServicesSection from "@/components/home/ServicesSection";
-import TestimonialSlider from "@/components/home/TestimonialSlider";
-import WhyChooseUs from "@/components/home/WhyChooseUs";
+import HeroSection from "@/components/home/redesign/HeroSection";
 
 const CommonLayoutHomePage = () => {
   return (
@@ -13,11 +10,14 @@ const CommonLayoutHomePage = () => {
             well-being. Expert care to help you recover, Move better, and feel
             your best."
       /> */}
-      <AboutSection />
+
+      {/* <AboutSection />
       <WhyChooseUs />
       <ServicesSection />
-      <TestimonialSlider />
+      <TestimonialSlider /> */}
       {/* <BannerBottom /> */}
+
+      <HeroSection />
     </div>
   );
 };
