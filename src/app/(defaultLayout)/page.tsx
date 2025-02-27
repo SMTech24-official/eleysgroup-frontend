@@ -1,4 +1,6 @@
+import AbooutMeSection from "@/components/home/redesign/AbooutMeSection";
 import HeroSection from "@/components/home/redesign/HeroSection";
+import WhyChoolseMeSection from "@/components/home/redesign/WhyChoolseMeSection";
 
 const CommonLayoutHomePage = () => {
   return (
@@ -18,6 +20,8 @@ const CommonLayoutHomePage = () => {
       {/* <BannerBottom /> */}
 
       <HeroSection />
+      <AbooutMeSection />
+      <WhyChoolseMeSection />
     </div>
   );
 };

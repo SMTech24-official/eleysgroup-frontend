@@ -1,4 +1,5 @@
 import ReduxProvider from "@/redux/provider/ReduxProvider";
+import { ReactLenis } from "lenis/react";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { Toaster } from "sonner";
@@ -23,7 +24,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${roboto.className} antialiased`}>
         <Toaster position="bottom-right" richColors />
-        <ReduxProvider>{children}</ReduxProvider>
+        <ReduxProvider>
+          <ReactLenis root> {children}</ReactLenis>
+        </ReduxProvider>
       </body>
     </html>
   );
