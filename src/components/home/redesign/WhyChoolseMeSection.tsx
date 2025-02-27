@@ -23,21 +23,21 @@ function WhyChoolseMeSection() {
   return (
     <div className="container my-20 grid grid-cols-1 lg:grid-cols-2 gap-12  ">
       <div>
-        <h3>Why Chose Me</h3>
-        <p>
+        <h3 className="text-[#FF9AE7] text-3xl font-semibold leading-[41.6px]">Why Chose Me</h3>
+        <p className="text-[#494949] text-base font-normal leading-[25.6px]">
           During your assessment, we’ll discuss your headache history, triggers, and lifestyle factors to develop a
           personalized treatment plan.
         </p>
 
-        <div>
+        <div className="flex flex-col gap-8 mt-8">
           {whyChooseOptions.map((option, index) => (
             <div key={index} className="flex gap-4 ">
-              <IoCheckmarkCircleOutline />
+              <IoCheckmarkCircleOutline size={30} className="text-primary" />
 
-              <div>
+              <div className="flex flex-col gap-2">
                 {" "}
-                <h4>{option.title}</h4>
-                <p>{option.description}</p>
+                <h4 className="text-[#303030] text-sm font-medium leading-[22.4px]">{option.title}</h4>
+                <p className="text-[#494949] text-base font-normal leading-[25.6px]">{option.description}</p>
               </div>
             </div>
           ))}
