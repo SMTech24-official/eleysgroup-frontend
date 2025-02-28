@@ -4,10 +4,16 @@ import aboutImage from "@/assets/home/image (25).png";
 
 function AbooutMeSection() {
   return (
-    <div className="grid grid-cols-2 gap-12 container my-10">
+    <div className="grid lg:grid-cols-2 gap-12 container my-10">
       <div>
-        <div className="bg-primary/50 max-[738px] max-w-[511px] rounded-2xl p-10">
-          <Image src={aboutImage} alt="About" height={1000} width={1000} className="max-h-[738px] max-w-[511px] ml-8" />
+        <div className="bg-primary/50  xl:max-w-[511px] rounded-2xl xl:p-10">
+          <Image
+            src={aboutImage}
+            alt="About"
+            height={1000}
+            width={1000}
+            className="max-h-[738px] h-full w-full xl:max-w-[511px] xl:ml-8"
+          />
         </div>
       </div>
       <div>

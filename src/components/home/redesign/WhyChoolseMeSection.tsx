@@ -44,7 +44,13 @@ function WhyChoolseMeSection() {
         </div>
       </div>
       <div>
-        <Image src={whyImage} alt="Why Choose Me" height={1000} width={1000} className="max-h-[720px] max-w-[588px]" />
+        <Image
+          src={whyImage}
+          alt="Why Choose Me"
+          height={1000}
+          width={1000}
+          className="max-h-[720px] w-full h-full max-w-[588px]"
+        />
       </div>
     </div>
   );

@@ -2,37 +2,29 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import heroImage from "@/assets/heroSectionPhoto.png";
-
-// const staticticsData = [
-//   {
-//     number: 80,
-//     label: "Satisfied clients",
-//   },
-//   {
-//     number: 200,
-//     label: "Projects completed",
-//   },
-//   {
-//     number: 99,
-//     label: "Reviews given",
-//   },
-//   {
-//     number: 100,
-//     label: "Success rate",
-//   },
-// ];
+import profileImage from "@/assets/bigprofile.png";
 
 export default function HeroSection() {
   return (
-    <section className="container mx-auto px-4 py-40">
-      <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-        <div className="space-y-6">
-          <h1 className=" text-[58px] font-bold leading-[70px] ">
+    <section className="container mx-auto px-4 lg:pt-40 lg:pb-40 pb-0 pt-32">
+      <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
+        <div className="flex items-center justify-center lg:hidden">
+          <Image
+            src={profileImage}
+            alt="Magda, a professional physiotherapist"
+            width={1000}
+            height={1000}
+            className="lg:hidden h-52 w-52 rounded-full"
+          />
+        </div>
+
+        <div className="flex flex-col justify-center gap-6">
+          <h1 className=" lg:text-[58px] text-4xl font-bold lg:leading-[70px] ">
             I am <span className="text-primary">Magda,</span>
             <br />
             physiotherapist
           </h1>
-          <p className="text-[#323433] text-[16px] font-normal leading-[150%]">
+          <p className="text-[#323433] text-wrap text-[16px] font-normal leading-[150%]">
             I&apos;m Magda, a passionate and dedicated physiotherapist with over 10 years of experience in helping
             people move better, feel stronger, and recover from pain or injury.
           </p>
@@ -52,7 +44,7 @@ export default function HeroSection() {
             </Link>
           </div>
         </div>
-        <div className="relative aspect-square lg:aspect-auto">
+        <div className="relative hidden lg:inline-block aspect-square lg:aspect-auto">
           <div className="absolute inset-0 rounded-2xl bg-pink-50" />
           <Image
             src={heroImage}
@@ -66,16 +58,16 @@ export default function HeroSection() {
       </div>
 
       <div>
-        <div className="flex items-center justify-between gap-8 mt-16">
-          <div className="h-[100px] w-[324px]">
+        <div className=" flex flex-wrap gap-10 mt-16">
+          <div className="h-[100px] max-w-[324px]">
             <h2 className="text-[24px] font-bold leading-[30px] text-primary">80</h2>
             <p className="text-[#323433] text-[16px] font-normal leading-[150%]">Satisfied clients</p>
           </div>
-          <div className="h-[100px] w-[324px]">
+          <div className="h-[100px] max-w-[324px]">
             <h2 className="text-[24px] font-bold leading-[30px] text-primary">200</h2>
             <p className="text-[#323433] text-[16px] font-normal leading-[150%]">Projects completed</p>
           </div>
-          <div className="h-[100px] w-[324px]">
+          <div className="h-[100px] max-w-[324px]">
             <h2 className="text-[24px] font-bold leading-[30px] text-primary">99</h2>
             <p className="text-[#323433] text-[16px] font-normal leading-[150%]">Reviews given</p>
           </div>
