@@ -215,7 +215,7 @@ export default function ServiceForm() {
           <div key={field.id} className="flex flex-col gap-2">
             <Input
               {...register(`points.${index}.name`, {
-                required: "List is required",
+                // required: "List is required",
               })}
               placeholder="List"
               className="flex-grow"

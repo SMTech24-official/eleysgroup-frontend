@@ -1,6 +1,8 @@
 import AbooutMeSection from "@/components/home/redesign/AbooutMeSection";
 import HeroSection from "@/components/home/redesign/HeroSection";
 import WhyChoolseMeSection from "@/components/home/redesign/WhyChoolseMeSection";
+import ServicesSection from "@/components/home/ServicesSection";
+import TestimonialSlider from "@/components/home/TestimonialSlider";
 
 const CommonLayoutHomePage = () => {
   return (
@@ -16,12 +18,14 @@ const CommonLayoutHomePage = () => {
       {/* <AboutSection />
       <WhyChooseUs />
       <ServicesSection />
-      <TestimonialSlider /> */}
+    */}
       {/* <BannerBottom /> */}
 
       <HeroSection />
       <AbooutMeSection />
       <WhyChoolseMeSection />
+      <ServicesSection />
+      <TestimonialSlider />
     </div>
   );
 };
