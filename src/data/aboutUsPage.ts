@@ -1,8 +1,8 @@
-import headecImage from "@/assets/about/Headache-Migraine.png";
-import tmjImage from "@/assets/about/TMJPhysiotherapy.png";
-import wetCuppingImage from "@/assets/about/Wet Cupping.png";
-import physiotherapyImage from "@/assets/about/Physiotherapy After image.png";
-import medicalMassageImage from "@/assets/about/medicalMessageTherapy.png";
+import headecImage from "@/assets/about/new/headache.png";
+import tmjImage from "@/assets/about/new/tmj.png";
+import wetCuppingImage from "@/assets/about/new/woman-experiencing-cupping-therapy 1.png";
+import physiotherapyImage from "@/assets/about/new/plasticSurgey.png";
+import medicalMassageImage from "@/assets/about/new/message.png";
 
 interface Option {
   title: string;

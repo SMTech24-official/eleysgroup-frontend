@@ -38,13 +38,13 @@ export default function HeroSection() {
           </p>
           <div className="flex flex-wrap items-center gap-4">
             <Link
-              href="#"
+              href="/about-us"
               className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-white transition-colors hover:bg-pink-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
             >
               Read more
             </Link>
             <Link
-              href="#"
+              href="/book-appointment/doctor-profile"
               className="inline-flex items-center text-sm font-medium transition-colors hover:text-pink-500"
             >
               View Portfolio
