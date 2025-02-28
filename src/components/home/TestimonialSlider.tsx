@@ -53,7 +53,7 @@ export default function TestimonialSlider() {
         ) : (
           reviews?.data?.data?.map((review: any) => (
             <SwiperSlide key={review.id} className="flex justify-center pb-20 ">
-              <div className="bg-white p-6 shadow-lg rounded-lg text-center w-full min-h-[250px]">
+              <div className="bg-white p-6 overflow-y-auto hiddenScrollbar shadow-lg rounded-lg text-center w-full h-[250px]">
                 <div className="w-20 h-20 rounded-full mx-auto mb-2">
                   <Image
                     src={review?.image}
